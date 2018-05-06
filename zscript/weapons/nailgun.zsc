@@ -25,7 +25,7 @@
 		NGIH A 3 CT_ResetOffset();
 		NGIH B 3 BRIGHT
 			{
-				A_PlaySound("Galaga/test", CHAN_WEAPON);
+				A_PlaySound("weapon-nailgun-fire", CHAN_WEAPON);
 				A_FireProjectile("NailShot", 0, TRUE, 0);
 				CT_ResetOffset();
 				A_OverlayOffset(1,0,40);
