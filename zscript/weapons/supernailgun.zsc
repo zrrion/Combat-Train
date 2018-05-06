@@ -26,7 +26,7 @@
 		N2IH A 1 A_CheckForReload(2, "Fire.Right");//this increments before it checks the counter
 		N2IH B 1
 			{
-				A_PlaySound("weapon-nailgun-fire", CHAN_AUTO);
+				A_PlaySound("weapon-nailgun-fire", CHAN_WEAPON);
 				A_FireProjectile("NailShot", 0, TRUE, -4, -4);
 				CT_ResetOffset();
 			}
@@ -36,7 +36,7 @@
 		N2IH E 1;
 		N2IH E 1
 			{
-				A_PlaySound("weapon-nailgun-fire", CHAN_AUTO);
+				A_PlaySound("weapon-nailgun-fire", CHAN_WEAPON);
 				A_FireProjectile("NailShot", 0, TRUE, 4, -4);
 				CT_ResetOffset();
 			}
