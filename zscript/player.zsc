@@ -42,10 +42,10 @@ Default
 		Player.WeaponSlot 1, 'CT_Macuahuitl';
 		Player.WeaponSlot 2, 'CT_Nailgun', 'CT_SuperNailgun';
 		Player.WeaponSlot 3, 'CT_Shotgun';
-		Player.WeaponSlot 4, 'Chaingun';
+		//Player.WeaponSlot 4, 'Chaingun';
 		Player.WeaponSlot 5, 'CT_Lazer';
-		Player.WeaponSlot 6, 'PlasmaRifle';
-		Player.WeaponSlot 7, 'BFG9000';
+		//Player.WeaponSlot 6, 'PlasmaRifle';
+		//Player.WeaponSlot 7, 'BFG9000';
 	}
 States
 	{
