@@ -61,10 +61,10 @@ class CT_Shotgun : MWeapon
 				A_FireProjectile("ShotgunShot", frandom(-6,-1), TRUE, -2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", 0, FALSE, -2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", frandom(6,1), FALSE, -2, 0, FPF_AIMATANGLE);
-				A_OverlayOffset(1,0 - 2 + fRandom(0.5,-0.5),32 + 4 + fRandom(0.5,-0.5));
+				A_OverlayOffset(1,0 - 2 + fRandom(0.5,-0.5),32 + 10 + fRandom(0.5,-0.5));
 			}
-		RPPR C 1 A_OverlayOffset(1,0 - 2 + fRandom(0.5,-0.5),32 + 5 + fRandom(0.5,-0.5));
-		RPPR C 4 A_OverlayOffset(1,0 - 1 + fRandom(0.5,-0.5),32 + 2 + fRandom(0.5,-0.5));
+		RPPR C 1 A_OverlayOffset(1,0 - 2 + fRandom(0.5,-0.5),32 + 8 + fRandom(0.5,-0.5));
+		RPPR C 4 A_OverlayOffset(1,0 - 1 + fRandom(0.5,-0.5),32 + 4 + fRandom(0.5,-0.5));
 		RPPR C 4 CT_ResetOffset();
 		RPPR C 1 A_ReFire("Fire.Hold");
 		Goto Fire.Done;
@@ -76,10 +76,10 @@ class CT_Shotgun : MWeapon
 				A_FireProjectile("ShotgunShot", frandom(-6,-1), TRUE, 0, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", 0, FALSE, 0, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", frandom(6,1), FALSE, 0, 0, FPF_AIMATANGLE);
-				A_OverlayOffset(1,0 + fRandom(0.5,-0.5),32 + 4 + fRandom(0.5,-0.5));
+				A_OverlayOffset(1,0 + fRandom(0.5,-0.5),32 + 10 + fRandom(0.5,-0.5));
 			}
-		RPPR E 1 A_OverlayOffset(1,0 + fRandom(0.5,-0.5),32 + 5 + fRandom(0.5,-0.5));
-		RPPR E 4 A_OverlayOffset(1,0 + fRandom(0.5,-0.5),32 + 2 + fRandom(0.5,-0.5));
+		RPPR E 1 A_OverlayOffset(1,0 + fRandom(0.5,-0.5),32 + 8 + fRandom(0.5,-0.5));
+		RPPR E 4 A_OverlayOffset(1,0 + fRandom(0.5,-0.5),32 + 4 + fRandom(0.5,-0.5));
 		RPPR E 4 CT_ResetOffset();
 		RPPR E 1 A_ReFire("Fire.Hold");
 		Goto Fire.Done;
@@ -91,10 +91,10 @@ class CT_Shotgun : MWeapon
 				A_FireProjectile("ShotgunShot", frandom(-6,-1), TRUE, 2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", 0, FALSE, 2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", frandom(6,1), FALSE, 2, 0, FPF_AIMATANGLE);
-				A_OverlayOffset(1,0 + 2 + fRandom(0.5,-0.5),32 + 4 + fRandom(0.5,-0.5));
+				A_OverlayOffset(1,0 + 2 + fRandom(0.5,-0.5),32 + 10 + fRandom(0.5,-0.5));
 			}
-		RPPR G 1 A_OverlayOffset(1,0 + 2 + fRandom(0.5,-0.5),32 + 5 + fRandom(0.5,-0.5));
-		RPPR G 4 A_OverlayOffset(1,0 + 1 + fRandom(0.5,-0.5),32 + 2 + fRandom(0.5,-0.5));
+		RPPR G 1 A_OverlayOffset(1,0 + 2 + fRandom(0.5,-0.5),32 + 8 + fRandom(0.5,-0.5));
+		RPPR G 4 A_OverlayOffset(1,0 + 1 + fRandom(0.5,-0.5),32 + 4 + fRandom(0.5,-0.5));
 		RPPR G 4 CT_ResetOffset();
 		RPPR G 1 A_ReFire("Fire.Hold");
 		Goto Fire.Reload;
@@ -109,13 +109,12 @@ class CT_Shotgun : MWeapon
 			{
 				CT_ResetOffset();
 				invoker.barrel *= 0;
+				A_PlaySound("weapon-shotgun-reload", CHAN_WEAPON);
 			}
 		RPPR G 6 A_OverlayOffset(1,0,32 + 10, WOF_INTERPOLATE);
 		RPPR E 2
 			{
 				A_OverlayOffset(1,0+Random(2,-2),32 + 8);
-				//Play sound here
-        A_PlaySound("weapon-shotgun-reload", CHAN_WEAPON);
 			}
 		RPPR C 3 A_OverlayOffset(1,0+Random(2,-2),32 + 10, WOF_INTERPOLATE);
 		RPPR A 6 A_OverlayOffset(1,0,32, WOF_INTERPOLATE);
