@@ -1,1 +1,2 @@
 Galaga/test "audio/GALAGA.ogg"
+weapon-nailgun-fire "audio/nailgun-fire.ogg"
