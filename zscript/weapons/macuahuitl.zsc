@@ -33,4 +33,10 @@
 		VCAN Z -1;
 		Stop;
 	}
+Action void CT_MacArcHit()
+	{
+		//Do a sweeping check from 45 deg right moving left to center
+		//What is the hitscan function?
+	}
+}
 }
