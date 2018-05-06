@@ -51,7 +51,6 @@ class NailShot : Actor
 		DamageFunction (5);//never randomizing damage again!
 		Projectile;
 		+RIPPER	+BRIGHT	+DONTFALL
-		SeeSound "imp/attack";
 		DeathSound "imp/shotx";
 	}
 	States

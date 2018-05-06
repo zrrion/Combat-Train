@@ -95,7 +95,6 @@ class LazerShot : FastProjectile
 		+ROLLSPRITE
 		+BLOODSPLATTER
 		SeeSound "imp/attack";
-		DeathSound "imp/shotx";
 		MissileHeight 8;//why does this spawn 8 units low by default?
 		MissileType "LazerSmoke";
 	}

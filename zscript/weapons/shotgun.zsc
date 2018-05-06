@@ -199,8 +199,6 @@ Default
 		+ROLLSPRITE
 		+ROLLCENTER
 		+BRIGHT
-		+BLOODSPLATTER
-		SeeSound "imp/attack";
 		DeathSound "imp/shotx";
 	}
 Override void PostBeginPlay()
