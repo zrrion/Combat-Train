@@ -1,0 +1,28 @@
+version "2.5"
+
+#include "zscript/player.zsc"
+#include "zscript/hudbar.zsc"
+#include "zscript/switches.zsc"
+
+#include "zscript/misc/gore.zsc"
+
+#include "zscript/items/health.zsc"
+#include "zscript/items/armor.zsc"
+#include "zscript/items/ammo/shells.zsc"
+#include "zscript/items/ammo/cells.zsc"
+#include "zscript/items/ammo/nails.zsc"
+
+#include "zscript/weapons/weaponBase.zsc"
+#include "zscript/weapons/shotgun.zsc"
+#include "zscript/weapons/lazer.zsc"
+#include "zscript/weapons/nailgun.zsc"
+#include "zscript/weapons/supernailgun.zsc"
+#include "zscript/weapons/macuahuitl.zsc"
+
+#include "zscript/enemies/test.zsc"
+
+#include "zscript/decorations/grass.zsc"
+#include "zscript/decorations/lilypad.zsc"
+
+#include "zscript/map/DynamicArray.zsc"
+#include "zscript/map/LineTexture.zsc"

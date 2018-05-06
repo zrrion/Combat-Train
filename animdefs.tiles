@@ -1,0 +1,47 @@
+TEXTURE BMTIND00 range BMTIND05 tics 6
+
+TEXTURE BMTIND06 range BMTIND11 tics 6
+
+TEXTURE "textures/animated/WTRFL001.png"
+	pic "textures/animated/WTRFL001.png" tics 6
+	pic "textures/animated/WTRFL002.png" tics 6
+	pic "textures/animated/WTRFL003.png" tics 6
+/*
+TEXTURE "textures/animated/WTRFL101.png"
+	pic "textures/animated/WTRFL101.png" tics 6
+	pic "textures/animated/WTRFL102.png" tics 6
+	pic "textures/animated/WTRFL103.png" tics 6
+
+TEXTURE "textures/animated/WTRFL201.png"
+	pic "textures/animated/WTRFL201.png" tics 6
+	pic "textures/animated/WTRFL202.png" tics 6
+	pic "textures/animated/WTRFL203.png" tics 6
+
+TEXTURE "textures/animated/WTRFL301.png"
+	pic "textures/animated/WTRFL301.png" tics 6
+	pic "textures/animated/WTRFL302.png" tics 6
+	pic "textures/animated/WTRFL303.png" tics 6
+*/
+TEXTURE "graphics/hud/H_BOX00A.png"
+	pic "graphics/hud/H_BOX00A.png" tics 6
+	pic "graphics/hud/H_BOX00B.png" tics 6
+	pic "graphics/hud/H_BOX00C.png" tics 6
+	pic "graphics/hud/H_BOX00D.png" tics 6
+	pic "graphics/hud/H_BOX00E.png" tics 6
+	pic "graphics/hud/H_BOX00F.png" tics 6
+	
+TEXTURE "graphics/hud/H_BOX01A.png"
+	pic "graphics/hud/H_BOX01A.png" tics 6
+	pic "graphics/hud/H_BOX01B.png" tics 6
+	pic "graphics/hud/H_BOX01C.png" tics 6
+	pic "graphics/hud/H_BOX01D.png" tics 6
+	pic "graphics/hud/H_BOX01E.png" tics 6
+	pic "graphics/hud/H_BOX01F.png" tics 6
+	
+warp2 texture WTRP0000 0.25
+warp2 texture WTRP0001 0.25
+warp2 texture WTRP0002 0.25
+
+warp texture LAVA0000 0.75
+warp texture LAVA0001 0.75
+warp texture LAVA0002 0.75

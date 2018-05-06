@@ -1,0 +1,131 @@
+//This is the hand switch. It was origionally done in decorate and has been converted to zscript
+
+class SwitchHand : SwitchableDecoration
+{
+	int NoRepeat;
+	int Flipped;
+	default
+	{
+		height 32;
+		radius 16;
+		//$Category Switches
+		+USESPECIAL
+		+NOGRAVITY
+		+NOCLIP
+		-SOLID
+		//+FIXMAPTHINGPOS
+		+WALLSPRITE
+		+BRIGHT
+		Activation THINGSPEC_Switch;
+	}
+States
+	{
+	Spawn:
+		SWHR A 0;
+		SWHR A 0 Thing_deactivate(0);
+		goto Inactive.A;
+	Active:
+		SWHR A 0 ;//A_PlaySound("switches/normbutn");
+	ToggleSwitch:
+		SWHR A 0
+			{
+				//A_PlaySound("switches/normbutn");
+				if(NoRepeat != 0)//This line is having a crash today
+				{
+					bUSESPECIAL = FALSE;
+				}
+				if(Flipped == 1)
+				{
+					Flipped = 0;
+					Thing_deactivate(0);
+				}
+				else
+				{
+					Flipped = 1;
+					Thing_deactivate(0);
+				}
+			}
+		Goto Inactive;
+	Inactive:
+		SWHR A 0
+			{
+				if(Flipped == 1)
+					{
+						return ResolveState("Inactive.B");
+					}
+				return ResolveState("Inactive.A");
+			}
+	Inactive.B:
+		SWHR B 70
+		{
+			if(NoRepeat != 0)
+			{
+				A_SetTics(-1);
+			}
+		}
+		GoTo ToggleSwitch;
+	Inactive.A:
+		SWHR A 1;
+		wait;
+	NoFlip:
+		SWHR B -1;
+		Stop;
+	}
+}
+
+class SwitchTech : SwitchHand
+{
+States
+	{
+	Spawn:
+		SWHS A 0;
+		SWHS A 0 Thing_deactivate(0);
+		goto Inactive.A;
+	Active:
+		SWHS A 0 ;//A_PlaySound("switches/normbutn");
+	ToggleSwitch:
+		SWHS A 0
+			{
+				//A_PlaySound("switches/normbutn");
+				if(NoRepeat != 0)//This line is having a crash today
+				{
+					bUSESPECIAL = FALSE;
+				}
+				if(Flipped == 1)
+				{
+					Flipped = 0;
+					Thing_deactivate(0);
+				}
+				else
+				{
+					Flipped = 1;
+					Thing_deactivate(0);
+				}
+			}
+		Goto Inactive;
+	Inactive:
+		SWHS A 0
+			{
+				if(Flipped == 1)
+					{
+						return ResolveState("Inactive.B");
+					}
+				return ResolveState("Inactive.A");
+			}
+	Inactive.B:
+		SWHS B 70
+		{
+			if(NoRepeat != 0)
+			{
+				A_SetTics(-1);
+			}
+		}
+		GoTo ToggleSwitch;
+	Inactive.A:
+		SWHS A 1;
+		wait;
+	NoFlip:
+		SWHS B -1;
+		Stop;
+	}
+}

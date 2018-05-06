@@ -1,0 +1,56 @@
+ class CT_SuperNailgun : MWeapon
+{
+	Default
+	{
+		//$Category Weapons
+		Weapon.AmmoUse 1;
+		Weapon.AmmoGive 20;
+		Weapon.AmmoType "CT_NailClip";
+		Inventory.PickupMessage "Nailgun";
+		Obituary "$OB_MPSHOTGUN";//Do this at some point
+	}
+	States
+	{
+	Ready:
+		N2IH A 1 CT_WeaponReady;
+		Loop;
+	Deselect:
+		N2IH A 1 CT_Lower;
+		Loop;
+	Select:
+		N2IH A 1 CT_Raise;
+		Loop;
+	Fire:
+	Fire.Left:
+		N2IH A 1 CT_ResetOffset();
+		N2IH A 1 A_CheckForReload(2, "Fire.Right");//this increments before it checks the counter
+		N2IH B 1 
+			{
+				A_FireProjectile("NailShot", 0, TRUE, -4, -4);
+				CT_ResetOffset();
+			}
+		N2IH CD 1;
+		Goto Fire.Done;
+	Fire.Right:
+		N2IH E 1;
+		N2IH E 1 
+			{
+				A_FireProjectile("NailShot", 0, TRUE, 4, -4);
+				CT_ResetOffset();
+			}
+		N2IH FG 1;
+		Goto Fire.Done;
+	Fire.Done:
+		N2IH A 1 A_ReFire("Fire");
+		N2IH A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	Spawn:
+		BLST Z -1;
+		Stop;
+	}
+}
+
+class SuperNailShot : NailShot 
+{
+
+}

@@ -1,0 +1,67 @@
+ class CT_Nailgun : MWeapon
+{
+	Default
+	{
+		//$Category Weapons
+		Weapon.AmmoUse 1;
+		Weapon.AmmoGive 20;
+		Weapon.AmmoType "CT_NailClip";
+		Inventory.PickupMessage "Nailgun";
+		Obituary "$OB_MPSHOTGUN";//Do this at some point
+	}
+	States
+	{
+	Ready:
+		NGIH A 1 CT_WeaponReady;
+		Loop;
+	Deselect:
+		NGIH A 1 CT_Lower;
+		Loop;
+	Select:
+		NGIH A 1 CT_Raise;
+		Loop;
+	Fire:
+	Fire.Left:
+		NGIH A 3 CT_ResetOffset();
+		NGIH B 3 BRIGHT
+			{
+				A_FireProjectile("NailShot", 0, TRUE, 0);
+				CT_ResetOffset();
+				A_OverlayOffset(1,0,40);
+			}
+		NGIH CCDA 4 A_OverlayOffset(1,0,-2,WOF_ADD);
+		NGIH A 1 A_ReFire("Fire");
+		//Add a sequesnce here where steam shoots out the side of the gun
+		NGIH A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	Spawn:
+		NGIH Z -1;
+		Stop;
+	}
+}
+
+class NailShot : Actor
+{
+	Default
+	{
+		Radius 6;
+		Height 8;
+		Speed 20;
+		DamageFunction (5);//never randomizing damage again!
+		Projectile;
+		+RIPPER	+BRIGHT	+DONTFALL
+		SeeSound "imp/attack";
+		DeathSound "imp/shotx";
+	}
+	States
+	{
+	Spawn:
+		NAIL A 2;
+		Loop;
+	Death:
+		//This is where we spawn Sparks and things
+		RPRS BCBC 2;
+		RPRS DEFGH 3;
+		Stop;
+	}
+}

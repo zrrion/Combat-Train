@@ -1,0 +1,53 @@
+class IntArray
+{
+    Array<int> values;
+}
+
+class DynArray_ACS : Thinker
+{
+    private Array<IntArray> m_Array;
+
+    static DynArray_ACS Instance()
+    {
+        let th = ThinkerIterator.Create("DynArray_ACS").Next();
+        if(!th) return new("DynArray_ACS"); else return DynArray_ACS(th);
+    }
+
+    static int Create()
+    {
+        int index = Instance().m_Array.Push(new("IntArray"));
+        return index;
+    }
+
+    static int Get(int aindex, int index)
+	{
+		let arr = Instance().m_Array[aindex];
+		if(index >= arr.values.Size())
+			{
+				arr.values.Resize(index + 1);
+				arr.values[index] = 1;
+			}
+		return arr.values[index];
+	}
+    
+    static void Set(int aindex, int index, int value)
+	{
+		let arr = Instance().m_Array[aindex];
+
+		if(index >= arr.values.Size())
+			arr.values.Resize(index + 1);
+
+		arr.values[index] = value;
+	}
+
+    static int Push(int aindex, int value)
+    {
+        int index = Instance().m_Array[aindex].values.Push(value);
+        return index;
+    }
+
+    static void Insert(int aindex, int index, int value)
+    {
+        Instance().m_Array[aindex].values.Insert(index, value);
+    }
+}

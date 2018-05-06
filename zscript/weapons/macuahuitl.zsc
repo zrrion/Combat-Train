@@ -1,0 +1,36 @@
+ //MCIHA0.png
+ class CT_Macuahuitl : MWeapon
+{
+	Default
+	{
+		+WEAPON.AMMO_OPTIONAL
+		+WEAPON.MELEEWEAPON
+		Obituary "$OB_MPSHOTGUN";//Do this at some point
+	}
+	States
+	{
+	Ready:
+		MCIH A 1 CT_WeaponReady;
+		Loop;
+	Deselect:
+		MCIH A 1 CT_Lower;
+		Loop;
+	Select:
+		MCIH A 1 CT_Raise;
+		Loop;
+	Fire:
+		MCIH A 0 CT_ResetOffset();
+		MCIH AAA 1 A_OverlayOffset(1, 0, 16, WOF_KEEPX|WOF_ADD);
+	Hold:
+		MCIH BCDE 2;
+		TNT1 A 11;
+		TNT1 A 1 A_ReFire("Hold");
+		MCIH A 0 A_OverlayOffset(1, 0, 32+(16*3), WOF_KEEPX);
+		MCIH AAA 1 A_OverlayOffset(1, 0, -16, WOF_KEEPX|WOF_ADD);
+		MCIH A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	Spawn:
+		VCAN Z -1;
+		Stop;
+	}
+}

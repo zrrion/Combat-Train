@@ -1,0 +1,125 @@
+//not technically a bar but whatever
+class CombatTrainHud : BaseStatusBar
+{
+	HUDFont SmallAmmoFont;//out here for scope
+	HUDFont BigAmmoFont;
+	
+	DynamicValueInterpolator ArmorInterpolator;
+	DynamicValueInterpolator HealthInterpolator;
+	int HudSideOffset;//This is how far from the side of the screen everything is by default
+	bool GodMode;
+	override void Init()
+	{
+		Super.Init();
+		SetSize(0, 320, 200);
+		Font fntsmall = "CT_SmallAmmoFont";
+		Font fntbig = "BigFont";
+		SmallAmmoFont = HUDFont.Create(fntsmall, 0, FALSE);
+		BigAmmoFont = HUDFont.Create(fntbig, 0, FALSE);
+		
+		ArmorInterpolator = DynamicValueInterpolator.Create(0, 0.5, 1, 5);
+		HealthInterpolator = DynamicValueInterpolator.Create(0, 0.5, 1, 5);
+		
+		HudSideOffset = 16;
+	}
+	
+	override void NewGame ()
+	{
+		Super.NewGame();
+		ArmorInterpolator.Reset (0);
+		HealthInterpolator.Reset (0);
+	}
+	
+	override void Tick()
+	{
+		Super.Tick();
+		ArmorInterpolator.Update(GetArmorAmount());
+		HealthInterpolator.Update(CPlayer.health);
+	}
+	
+	override void Draw (int state, double TicFrac)
+	{
+		Super.Draw (state, TicFrac);
+		BeginHUD();
+		//eventually there will be a check here for whether the hud is turned off, and if the player is using the map or not
+		//I might remove the aoutmap feature though, so who knows
+		
+		int cheats = CPlayer.cheats;
+		if(/*CPlayer.bINVULNERABLE || CPlayer.bNODAMAGE || CountInv("PowerInvulnerable") > 0 ||*/ cheats & (CF_GODMODE | CF_GODMODE2))
+			GodMode = TRUE;
+		else
+			GodMode = FALSE;
+		
+		
+		CT_DrawHUDLeft();
+		CT_DrawHUDRight();
+	}
+	
+	protected void CT_DrawHUDRight()
+	{
+		Inventory YerAmmo;
+		if(CPlayer.ReadyWeapon != NULL)//Are We Holding a gnu?
+			YerAmmo = CPlayer.ReadyWeapon.Ammo1;//What ammo does it use?
+		if(YerAmmo != null)//Does it even use any?
+		{
+			DrawImage("graphics/hud/H_BOX001.png", (8 + HudSideOffset, 6) * -1, DI_FORCESCALE|DI_ITEM_RIGHT_BOTTOM|DI_SCREEN_RIGHT_BOTTOM);
+			if(GodMode)
+				DrawImage("graphics/hud/H_BOX01A.png", (8 + HudSideOffset, 6) * -1, DI_FORCESCALE|DI_ITEM_RIGHT_BOTTOM|DI_SCREEN_RIGHT_BOTTOM);
+			
+			DrawInventoryIcon(YerAmmo, (20 + HudSideOffset, 23) * -1, DI_FORCESCALE|DI_ITEM_CENTER_BOTTOM|DI_SCREEN_RIGHT_BOTTOM);
+			DrawImage("graphics/hud/H_BOX002.png", (27 + HudSideOffset, 11) * -1, DI_FORCESCALE|DI_ITEM_RIGHT_BOTTOM|DI_SCREEN_RIGHT_BOTTOM);
+			DrawString(SmallAmmoFont, FormatNumber(YerAmmo.MaxAmount, 0, 3), (28 + HudSideOffset, 16) * -1, DI_TEXT_ALIGN_LEFT);
+			DrawString(BigAmmoFont, FormatNumber(YerAmmo.Amount, 0, 3), (34 + HudSideOffset, 18) * -1, DI_TEXT_ALIGN_RIGHT);
+		}
+	}
+	
+	protected void CT_DrawHUDLeft()
+	{
+		DrawImage("graphics/hud/H_BOX000.png", (8 + HudSideOffset, -6), DI_FORCESCALE|DI_ITEM_LEFT_BOTTOM);
+		if(GodMode)
+			DrawImage("graphics/hud/H_BOX00A.png", (8 + HudSideOffset, -6), DI_FORCESCALE|DI_ITEM_LEFT_BOTTOM);
+
+		Vector2 HealthPos = (53 + HudSideOffset, -11);
+		int BarHealth0 = HealthInterpolator.GetValue();
+		int BarHealth1 = CPlayer.health;
+		
+		int wounds = Passenger(CPlayer.mo).wounds;
+		
+		DrawBar("graphics/hud/H_HBAR0.png", "", BarHealth0 - wounds, 100, HealthPos, 0, SHADER_HORZ|SHADER_REVERSE, DI_ITEM_LEFT_BOTTOM);
+		DrawBar("graphics/hud/H_HBAR1.png", "", BarHealth1 - wounds, 100, HealthPos, 0, SHADER_HORZ|SHADER_REVERSE, DI_ITEM_LEFT_BOTTOM);
+		DrawBar("graphics/hud/H_HBAR2.png", "", BarHealth1 - 100 - wounds, 100, HealthPos, 0, SHADER_HORZ|SHADER_REVERSE, DI_ITEM_LEFT_BOTTOM);
+		if(BarHealth1 > wounds)
+			DrawImage("graphics/hud/H_HP0.png", (44  + HudSideOffset, -10), DI_FORCESCALE|DI_ITEM_LEFT_BOTTOM);
+		
+		//draw the hearts for wounds
+		int j = 1;
+		for(int i = 1; i <= 6; i++)
+		{
+			if(i%2 == 0)
+				j++;
+			Vector2 WoundPos = (32 + HudSideOffset + j*15, -22);
+			if(wounds == 1 && i == 1)
+			{
+				DrawImage("graphics/hud/H_HRT001.png", WoundPos, DI_FORCESCALE|DI_ITEM_LEFT_BOTTOM);
+				break;//not strictly needed, but there's no point looping after this so we don't
+			}
+			else if(wounds > i && i%2 == 1)
+			{
+				DrawImage("graphics/hud/H_HRT000.png", WoundPos, DI_FORCESCALE|DI_ITEM_LEFT_BOTTOM);
+			}
+			else if(wounds > i && i%2 == 0)
+			{
+				DrawImage("graphics/hud/H_HRT001.png", WoundPos, DI_FORCESCALE|DI_ITEM_LEFT_BOTTOM);
+			}
+		}
+		
+		Vector2 ArmorPos = (67 + HudSideOffset, -11);
+		int BarArmor0 = ArmorInterpolator.GetValue();
+		int BarArmor1 = GetArmorAmount();
+		DrawBar("graphics/hud/H_ABAR0.png", "", BarArmor0, 100, ArmorPos, 0, SHADER_HORZ, DI_ITEM_LEFT_BOTTOM);
+		DrawBar("graphics/hud/H_ABAR1.png", "", BarArmor1, 100, ArmorPos, 0, SHADER_HORZ, DI_ITEM_LEFT_BOTTOM);
+		DrawBar("graphics/hud/H_ABAR2.png", "", BarArmor1 - 100, 100, ArmorPos, 0, SHADER_HORZ, DI_ITEM_LEFT_BOTTOM);
+		if(BarArmor1 > 0)
+			DrawImage("graphics/hud/H_HP2.png", (82 + HudSideOffset, -10), DI_FORCESCALE|DI_ITEM_LEFT_BOTTOM);
+	}
+}

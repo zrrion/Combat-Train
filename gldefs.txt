@@ -1,0 +1,17 @@
+HardwareShader "textures/animated/WTRFL101.png"
+{
+	Shader "shaders/SCROLL.fp"
+	Speed 1
+}
+
+HardwareShader "textures/animated/WTRFL102.png"
+{
+	Shader "shaders/SCROLL.fp"
+	Speed 1
+}
+
+HardwareShader "textures/animated/WTRFL103.png"
+{
+	Shader "shaders/SCROLL.fp"
+	Speed 1
+}

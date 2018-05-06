@@ -1,0 +1,50 @@
+GameInfo
+{
+	PlayerClasses = "Passenger"
+	StatusBarClass = "CombatTrainHud"
+	
+	dimcolor = "Black"
+	dimamount = 1
+	
+	cursorpic = "graphics/M_CRSR.png"
+	DontCrunchCorpses = TRUE
+}
+
+gamedefaults//Since this will end up being an iwad
+{
+}
+
+DoomEdNums
+{	
+	//12000 = grenade/remote detonator?
+	//12001 = cool sword
+	//12002 = nailgun
+	12003 = CT_Shotgun	
+	12004 = CT_Lazer
+	//12005 = fancy gun here
+	//12006 = big gun name here
+	12010 = SwitchTech
+	12011 = SwitchHand
+	12012 = Grass_Spawner
+	12013 = lilypad
+	12014 = CT_Shell
+	12015 = CT_ShellMag
+	12016 = CT_ShellPile
+	12017 = CT_ShellBox
+	12018 = CT_PowerPack
+	12019 = CT_LargePowerPack
+	12020 = CT_SmallHealth
+	12021 = CT_BigHealth
+	12022 = CT_BiggestHealth
+	12023 = CT_HealthBonus
+	12024 = CT_HalfHeart
+	12025 = CT_FullHeart
+	
+}
+map MAP01 "TestMap"
+{
+   levelnum = 1
+   next = "MAP01"
+   Sky1 = "CSKY0001", 0
+   //music = "$MUSIC_E1M1"
+}

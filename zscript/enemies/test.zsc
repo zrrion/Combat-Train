@@ -1,0 +1,7 @@
+class NewDemon : Demon replaces Demon
+{
+Default
+	{
+		speed 0;
+	}
+}

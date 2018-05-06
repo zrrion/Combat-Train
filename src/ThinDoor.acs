@@ -1,0 +1,80 @@
+#library "ThinDoor.acs"
+#include "zcommon.acs"
+
+function int ArrayCreate(void)//"DynArray_ACS"
+{
+    return ScriptCall("DynArray_ACS", "Create");
+}
+
+function int ArrayGet(int array, int index)
+{
+    return ScriptCall("DynArray_ACS", "Get", array, index);
+}
+
+function int ArraySet(int array, int index, int value)
+{
+    return ScriptCall("DynArray_ACS", "Set", array, index, value);
+}
+
+function int ArrayPush(int array, int value)
+{
+    return ScriptCall("DynArray_ACS", "Push", array, value);
+}
+
+function int ArrayInsert(int array, int index, int value)
+{
+    return ScriptCall("DynArray_ACS", "Insert", array, index, value);
+}
+
+//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+//The Thin Door Code
+//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+int DoorArray = -1;
+int iArray = -1;
+
+Script "SetUpTheDoorArray" Open
+{
+	DoorArray = ArrayCreate();
+	iArray = ArrayCreate();
+}
+
+Script "ThinDoor" (int tag/*The tag of the line(s) of the door AND of the sector(s) to either side of the door*/, int speed/*Number of tics for each frame of animation*/, int texture/*which texture to use*/)
+{
+	str Animation_Door[2][22] = {
+			/*Face Door*/		{"CCDR0000","CCDR0001","CCDR0002","CCDR0003","CCDR0004","CCDR0005","CCDR0006","CCDR0007","CCDR0008","CCDR0009","CCDR0010","CCDR0011","CCDR0012","CCDR0013","CCDR0014","CCDR0015","CCDR0016","CCDR0017","CCDR0018","CCDR0019","CCDR0020","CCDR0021"},
+			/*Face Dror Vines*/	{"CVDR0000","CVDR0001","CVDR0002","CVDR0003","CVDR0004","CVDR0005","CVDR0006","CVDR0007","CVDR0008","CVDR0009","CVDR0010","CVDR0011","CVDR0012","CVDR0013","CVDR0014","CVDR0015","CVDR0016","CVDR0017","CVDR0018","CVDR0019","CVDR0020","CVDR0021"}
+								};
+	//PlaySound
+	if(texture == 0)
+		texture = 1;
+	if(ArrayGet(DoorArray, tag) < 0 || ArrayGet(DoorArray, tag) > 1)
+	{
+		ArraySet(DoorArray, tag, 1);
+	}
+	if(ArrayGet(DoorArray, tag) == 1)
+	{
+		for(ArraySet(DoorArray, tag, 0); ArrayGet(DoorArray, tag) < 22; ArraySet(DoorArray, tag, ArrayGet(DoorArray, tag) + 1))
+		{
+			delay(speed);
+				for(int j = 0; j <= 1; j++)//SIDE_FRONT/BACK are just 1 and 0
+				{
+					SetLineTexture(tag, j, TEXTURE_MIDDLE, Animation_Door[texture - 1][ArrayGet(DoorArray, tag)]);
+				}
+		}
+		ArraySet(DoorArray, tag, 0);
+		Line_SetBlocking(tag, 0, BLOCKF_EVERYTHING|BLOCKF_USE|BLOCKF_SIGHT|BLOCKF_HITSCAN);
+	}
+	else
+	{
+		Line_SetBlocking(tag, BLOCKF_EVERYTHING|BLOCKF_USE|BLOCKF_SIGHT|BLOCKF_HITSCAN|BLOCKF_SOUND, 0);
+		for(ArraySet(DoorArray, tag, 21); ArrayGet(DoorArray, tag) >= 0; ArraySet(DoorArray, tag, ArrayGet(DoorArray, tag) - 1))
+		{
+			delay(speed);
+				for(j = 0; j <= 1; j++)//SIDE_FRONT/BACK are just 1 and 0
+				{
+					SetLineTexture(tag, j, TEXTURE_MIDDLE, Animation_Door[texture - 1][ArrayGet(DoorArray, tag)]);
+				}
+		}
+		ArraySet(DoorArray, tag, 1);
+	}
+}

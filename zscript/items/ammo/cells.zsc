@@ -1,0 +1,38 @@
+//.png
+class CT_PowerPack : Ammo
+{
+	Default
+	{
+		//$Category Ammo
+		+INVENTORY.IGNORESKILL;
+		Inventory.PickupMessage "Power Pack (+2)";//Language defs later
+		Inventory.Amount 2;
+		Inventory.MaxAmount 50;
+		Ammo.BackpackAmount 10;
+		Ammo.BackpackMaxAmount 100;
+		Inventory.Icon "CLLA";
+		Tag "Power Pack";
+	}
+	States
+	{
+	Spawn:
+		CLLA A -1;
+		Stop;
+	}
+}
+
+class CT_LargePowerPack : CT_PowerPack
+{
+	Default
+	{
+		//$Category Ammo
+		Inventory.PickupMessage "High capacity power  pack (+10)";
+		Inventory.Amount 10;
+	}
+	States
+	{
+	Spawn:
+		CLLA B -1;
+		Stop;
+	}
+}

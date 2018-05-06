@@ -1,0 +1,11 @@
+terrain CT_Lava
+{
+	liquid
+	damageamount	5
+	damagetype		lava//this gets remaped to fire for some reason
+	damagetimemask	31
+}
+
+floor LAVA0000 CT_Lava
+floor LAVA0001 CT_Lava
+floor LAVA0002 CT_Lava

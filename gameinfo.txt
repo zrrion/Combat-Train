@@ -1,0 +1,4 @@
+STARTUPTITLE = "Combat Train EARLY ALPHA"
+STARTUPCOLORS = "B8D3EF", "45283C"
+//STARTUPTYPE = "<game name>"//make a hexen startup at some point
+//STARTUPSONG = "<lump name>"

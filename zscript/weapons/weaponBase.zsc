@@ -1,0 +1,252 @@
+class MWeapon : DoomWeapon
+{	
+float Ang;
+float AngOld;
+
+int ReadySprite;
+	Default
+	{
+		+DONTGIB
+		+Weapon.DONTBOB;
+		Weapon.SelectionOrder 9999999;
+		+WEAPON.NOALERT;
+		Tag " ";
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 1;
+		Stop;
+	Ready:
+		TNT1 A 1 CT_WeaponReady();
+		Loop;
+	Ready.Bob:
+		TNT1 A 1;
+		Loop;
+	Select:
+		TNT1 A 0;
+	Select.Loop:
+		TNT1 A 1 CT_Raise();
+		Loop;
+	Deselect:
+		TNT1 A 0;
+	Deselect.Loop:
+		TNT1 A 1 CT_Lower();
+		Loop;
+	Fire://Actually Firing
+		TNT1 A 1 ResolveState("Ready");
+		TNT1 A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	AltFire://an additional attack probably
+		"####" "#" 0 CT_ClearSpectrumAnalyzer();
+		"####" "###" 1 A_WeaponOffset(-16,16,WOF_ADD);
+	AltFire.Punch:
+		FIST A 1;//?
+		FIST B 1
+			{
+				CT_ResetOffset();
+				A_PlaySound("skeleton/swing", 6,0.5);
+			}
+		FIST C 2 A_CustomPunch(10, TRUE, CPF_NOTURN, "FistPuff");
+		FIST BA 3;
+		/*FIST C 1 A_WeaponOffset(-50, 36);
+		FIST C 1 A_WeaponOffset(-90, 46);
+		FIST C 1 A_WeaponOffset(-140, 50);
+		FIST C 1 A_WeaponOffset(-180, 60);
+		FIST C 1 A_WeaponOffset(-210, 70);
+		FIST C 1 A_WeaponOffset(-240, 90);*/
+		TNT1 A 5;
+		TNT1 A 1 A_Refire("AltFire.Punch");
+		TNT1 A 0
+			{
+				Players[consoleplayer].psprites.sprite = invoker.ReadySprite;//this sets the sprite back to what it was before punching
+				A_WeaponOffset(-24,32+48);
+			}
+		"####" "#" 1 A_WeaponOffset(8,-16,WOF_ADD);
+		"####" "#" 2 A_WeaponOffset(8,-16,WOF_ADD);
+		"####" "#" 3 A_WeaponOffset(8,-16,WOF_ADD);
+		TNT1 A 0
+		{
+			CT_ResetAngleOffsets();
+			CT_ResetOffset();
+		}
+		TNT1 A 0 ResolveState("Ready"); 
+		Goto Ready;
+	User1://probably melee
+		TNT1 A 1 ResolveState("Ready"); 
+		TNT1 A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	User2://Ability 1
+		TNT1 A 1 ResolveState("Ready"); 
+		TNT1 A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	User3://Ability 2
+		TNT1 A 1 ResolveState("Ready"); 
+		TNT1 A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	User4://Ability 3
+		TNT1 A 1 ResolveState("Ready"); 
+		TNT1 A 0 CT_ResetAngleOffsets();
+		Goto Ready;
+	DeadLowered:
+		TNT1 A 1;
+		Loop;
+	}
+//====
+//A_Raise/Lower at double (or more) speed
+//====
+	action void CT_ClearSpectrumAnalyzer()
+	{
+		A_Overlay(3, "LightDone");
+		A_Overlay(4, "LightDone");
+		A_Overlay(5, "LightDone");
+		A_Overlay(6, "LightDone");
+		A_Overlay(7, "LightDone");
+		A_Overlay(8, "LightDone");
+	}
+
+	action void CT_ResetAngleOffsets()
+	{
+		invoker.Ang = Angle;//Fill Ang/AngOld to fix animation issue
+		invoker.AngOld = Angle;
+	}
+	action void CT_SetWeaponFrame (int someInteger = 0, int Layer = 1)
+	{
+		let psp =  player.findPSprite(Layer);
+		psp.frame = someInteger;
+	}
+	action void CT_Lower(int speed = 2)
+	{
+		if(speed <= 0)//No non-pos numbers here
+			speed == 2;
+
+		A_Lower(speed * 6);
+	}
+	action void CT_Raise(int speed = 2)
+	{
+		CT_ResetAngleOffsets();
+		if(speed <= 0)
+			speed == 2;
+
+		A_Raise(speed * 6);
+	}
+//====
+//redoing A_WeaponReady
+//====
+	enum MWR_LayerIdentifiers
+	{
+		MWR_GUN_RIGHT	= 1, //
+		MWR_GUN_LEFT	= 2, //
+		MWR_FLASH_RIGHT	= 3, //
+		MWR_FLASH_LEFT	= 4, //
+	}
+	action void CT_WeaponReady( int flags = WRF_NOBOB)//Only want to handle the select/deselect stuff, and firing
+	{
+		invoker.ReadySprite = Players[consoleplayer].psprites.sprite;
+		A_WeaponReady(flags);
+		CT_WeaponBob();
+	}
+//====
+//
+//====
+	action void CT_WeaponBob(int bobx = 6, int boby = 12, double bobs = 0.75 )
+	{
+		invoker.AngOld = invoker.Ang;
+		invoker.Ang = Angle;
+		float AngleDif = (-0.5 * deltaangle(invoker.Ang, invoker.AngOld)) * (-1*(Abs(Pitch)-90))/90;//controls how far the player's weapon moves left/right. This is scaled by the player's pitch
+		float Vel =  bobs * sqrt(vel.x * vel.x + vel.y * vel.y);
+		A_OverlayOffset(1,Abs(Vel * Cos(bobx * level.maptime)) + AngleDif,32 + Abs(Vel * Sin(boby * level.maptime)) + pitch/18, WOF_INTERPOLATE);//add pitch adjustments maybe
+	}
+	action void CT_ResetOffset()
+	{
+		A_OverlayOffset(1,0,32);
+		A_OverlayOffset(1000,0,32);//Just in case
+	}
+//==== 
+//Take either AMMO1 or AMMO2. Usefull for inclusion in firing functions
+//==== 
+	action void CT_TakeAmmo(int amount = 1, bool type = TRUE)//how much / which one
+	{
+		if(type)
+			A_TakeInventory(invoker.AmmoType1, amount, TIF_NOTAKEINFINITE);
+			
+		else
+			A_TakeInventory(invoker.AmmoType2, amount, TIF_NOTAKEINFINITE);
+	}
+//==== 
+//Check if player has enough ammo
+//==== 
+	action bool CT_CheckAmmo(int amount = -1, bool type = TRUE)
+	{
+		if(type && amount <= 0)
+			amount = invoker.AmmoUse1;
+		else if(!type && amount <= 0)
+			amount = invoker.AmmoUse2;
+
+		if((type && CountInv(invoker.AmmoType1) < amount) || (!type && CountInv(invoker.AmmoType2) < amount ))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	action bool CT_Buttons(int button)
+	{
+		return (GetPlayerInput(INPUT_BUTTONS) & button);
+	}
+	action bool CT_OldButtons(int button)
+	{
+		return (GetPlayerInput(INPUT_OLDBUTTONS) & button);
+	}
+}
+
+class FistPuff : Actor
+{
+	Default
+	{
+		ActiveSound "";
+		AttackSound "";
+		SeeSound "";
+		
+		alpha 0;
+		
+		+DONTGIB;
+		+PUFFONACTORS;
+		+PUFFGETSOWNER;
+		+NOEXTREMEDEATH;
+	}
+States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay;
+	Crash:
+		TNT1 A 1;// A_PlaySound("punch/wall",CHAN_AUTO,0.5);
+		Stop;
+	XDeath:
+		TNT1 A 1;// A_PlaySound("punch/hit",CHAN_AUTO,0.5);
+		Stop;
+	}
+}
+
+class GunSmoke : Actor
+{
+	default
+	{
+		+NOGRAVITY	+NOINTERACTION +NOBLOCKMAP
+		+ROLLSPRITE
+	}
+	states
+	{
+		Spawn:
+			GSMK ABCDE 3;
+			Stop;
+	}
+	override void PostBeginPlay()
+	{
+		bSPRITEFLIP = Random(TRUE,FALSE);
+		A_SetRoll(fRandom(-20,20),0,0);
+	}
+}

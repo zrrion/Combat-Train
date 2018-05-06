@@ -1,0 +1,69 @@
+class CT_Shell : Ammo
+{
+	Default
+	{
+		//$Category Ammo
+		+INVENTORY.IGNORESKILL;
+		Inventory.PickupMessage "Shotgun shells (+4)";//Language defs later
+		Inventory.Amount 3;
+		Inventory.MaxAmount 60;
+		Ammo.BackpackAmount 6;
+		Ammo.BackpackMaxAmount 120;
+		Inventory.Icon "SGAP";
+		Tag "Shotgun Shells";
+	}
+	States
+	{
+	Spawn:
+		SGAP B -1;
+		Stop;
+	}
+}
+
+class CT_ShellMag : CT_Shell
+{
+	Default
+	{
+		//$Category Ammo
+		Inventory.PickupMessage "Magazine of shells (+9)";
+		Inventory.Amount 9;
+	}
+	States
+	{
+	Spawn:
+		SGAP A -1;
+		Stop;
+	}
+}
+
+class CT_ShellPile : CT_Shell
+{
+	Default
+	{
+		//$Category Ammo
+		Inventory.PickupMessage "Several shotgun shells (+15)";
+		Inventory.Amount 15;
+	}
+	States
+	{
+	Spawn:
+		SGAP C -1;
+		Stop;
+	}
+}
+
+class CT_ShellBox : CT_Shell
+{
+	Default
+	{
+		//$Category Ammo
+		Inventory.PickupMessage "Box of shells (+20)";
+		Inventory.Amount 20;
+	}
+	States
+	{
+	Spawn:
+		SGAP D -1;
+		Stop;
+	}
+}

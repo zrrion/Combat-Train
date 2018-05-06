@@ -1,0 +1,176 @@
+class CT_HealthBase : Health
+{
+	Default
+	{
+		//$Category Health
+		Inventory.MaxAmount 106;//When this is picked up MaxAmount is recalculated to include wounds
+	}
+	override bool TryPickup(in out Actor toucher)
+	{
+		let player = Passenger(toucher);
+		int wounds = player.wounds;
+		bool success = false;
+		MaxAmount = 100 + wounds;
+		success |= Super.TryPickup(toucher);
+		return success;
+	}
+}
+
+class CT_SmallHealth : CT_HealthBase
+{
+	Default
+	{
+		//$Category Health
+		Inventory.Amount 10;
+		Inventory.PickupMessage "Small health pack";
+	}
+	States
+	{
+	Spawn:
+		HPKP A -1;
+		Stop;
+	}
+}
+
+class CT_BigHealth : CT_HealthBase
+{
+	Default
+	{
+		//$Category Health
+		Inventory.Amount 25;
+		Inventory.PickupMessage "Big health pack";
+	}
+	States
+	{
+	Spawn:
+		HPKP B -1;
+		Stop;
+	}
+}
+
+class CT_HealthBonus : Health
+{
+	Default
+	{
+		//$Category Health
+		Inventory.Amount 10;
+		Inventory.MaxAmount 200;
+		Inventory.PickupMessage "Health bonus";
+	}
+	States
+	{
+	Spawn:
+		POTN ABCDEDCB 6;
+		Loop;
+	}
+	override bool TryPickup(in out Actor toucher)
+	{
+		let player = Passenger(toucher);
+		int wounds = player.wounds;
+		bool success = false;
+		MaxAmount = 200 + wounds;
+		success |= Super.TryPickup(toucher);
+		return success;
+	}
+}
+
+class CT_BiggestHealth : CT_HealthBase
+{
+	Default
+	{
+		Inventory.Amount 30;
+		Inventory.PickupMessage "Biggest health pack";
+	}
+	States
+	{
+	Spawn:
+		HPKP D -1;
+		Stop;
+	}
+	override bool TryPickup(in out Actor toucher)
+	{
+		let player = Passenger(toucher);
+		int wounds = player.wounds;
+		bool success;
+		
+		if(wounds < 6)//can we heal wounds?
+		{
+			player.wounds += 1;//heal wounds
+			Amount += 1;//When the player heals from a wound their health pool increases. This is to cover that increase
+			success = TRUE;
+		}
+		success |= Super.TryPickup(toucher);
+		return success;
+	}
+}
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//these give wounds, not health
+
+
+
+class CT_HalfHeart : CT_HealthBase
+{
+	Default
+	{
+		+SYNCHRONIZED
+		Inventory.Amount 1;
+		Inventory.PickupMessage "Half heart potion";
+	}
+	States
+	{
+	Spawn:
+		HRTP ABCDEF 6;
+		Loop;
+	}
+override bool TryPickup(in out Actor toucher)
+	{
+		let player = Passenger(toucher);
+		int wounds = player.wounds;
+		bool success;
+		if(wounds < 6)//can we heal wounds?
+		{
+			player.wounds += 1;//heal wounds
+			success = TRUE;
+			success |= Super.TryPickup(toucher);
+		}
+		else
+			success = FALSE;
+		return success;
+	}
+}
+
+class CT_FullHeart : CT_HealthBase
+{
+	Default
+	{
+		+SYNCHRONIZED
+		Inventory.Amount 1;
+		Inventory.PickupMessage "Full heart potion";
+	}
+	States
+	{
+	Spawn:
+		HRTP GHIJKL 6;
+		Loop;
+	}
+override bool TryPickup(in out Actor toucher)
+	{
+		let player = Passenger(toucher);
+		int wounds = player.wounds;
+		bool success;
+		if(wounds < 6)//can we heal wounds?
+		{
+			if(wounds <= 4)
+			{
+				player.wounds += 1;//heal wounds
+				Amount += 1;
+			}
+			player.wounds += 1;
+			success = TRUE;
+			success |= Super.TryPickup(toucher);
+		}
+		else
+			success = FALSE;
+		return success;
+	}
+}

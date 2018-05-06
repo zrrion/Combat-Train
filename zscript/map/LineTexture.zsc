@@ -1,0 +1,67 @@
+/*
+for (int i = 0; i < level.Sides.Size(); i++)
+        {
+            Side s = level.Sides[i];
+			// swap upper and lower textures & offsets
+			TextureID newUpper = s., (2);
+			TextureID newLower = s.GetTexture(0);
+			// void SetTexture(int which, FTextureID tex)
+			s.SetTexture(0, newUpper);
+			s.SetTexture(2, newLower);
+			double newUpperOff = s.GetTextureYOffset(2);
+			double newLowerOff = s.GetTextureYOffset(0);
+			s.SetTextureYOffset(0, newUpperOff);
+			s.SetTextureYOffset(2, newLowerOff);
+			// vertically flip all textures
+			s.SetTextureYScale(0, -1.0);
+			s.SetTextureYScale(1, -1.0);
+			s.SetTextureYScale(2, -1.0);
+		}
+*/
+
+/*
+Step 1:		Get the group of sides that share the same tag
+Step 2:		get the texture in the middle of a side
+Step 3:		Split the texture name into an alpha and numeric component
+Step 4:		Add 1 to the numeric part and reattatch the numeric part
+Step 5A:	If new texture exists set new texture
+Step 5B:	If new texture does not exist repeat steps 2-5 for next side
+step 6:		If no sides have had their textures changed return FALSE, else return TRUE
+*/
+const MD_SIDE_FRONT = 0;
+const MD_SIDE_BACK  = 1;
+
+const MD_TEXTURE_TOP    = 0;
+const MD_TEXTURE_MIDDLE = 1;
+const MD_TEXTURE_BOTTOM = 2;
+
+class LineTextureChecker
+{
+    static bool ForwardAnimation()
+    {
+	String TexName;
+	String TexAlpha;
+	String TexNumeric;
+	TextureID CurTex;
+	TextureID NewTex;
+	//get a side of tag i
+		/*
+		LineIdIterator
+		*/
+	//check the current texture
+	
+	//do the name changing stuff
+	
+	//does it exist
+	NewTex = TexMan.CheckForTexture (TexName, TexMan.Type_Any);
+		if(TRUE)
+			{
+				//return FALSE;
+			}
+		else
+			{
+				//return FALSE;
+			}
+		return FALSE;
+    }
+}
