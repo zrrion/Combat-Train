@@ -54,9 +54,10 @@ class CT_Shotgun : MWeapon
 					}
 			}
 	Fire.Left:
-		RPPR B 3 
+		RPPR B 3
 			{
 				A_AlertMonsters();
+        A_PlaySound("weapon-shotgun-fire", CHAN_WEAPON);
 				A_FireProjectile("ShotgunShot", frandom(-6,-1), TRUE, -2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", 0, FALSE, -2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", frandom(6,1), FALSE, -2, 0, FPF_AIMATANGLE);
@@ -71,6 +72,7 @@ class CT_Shotgun : MWeapon
 		RPPR D 3
 			{
 				A_AlertMonsters();
+        A_PlaySound("weapon-shotgun-fire", CHAN_WEAPON);
 				A_FireProjectile("ShotgunShot", frandom(-6,-1), TRUE, 0, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", 0, FALSE, 0, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", frandom(6,1), FALSE, 0, 0, FPF_AIMATANGLE);
@@ -85,6 +87,7 @@ class CT_Shotgun : MWeapon
 		RPPR F 3
 			{
 				A_AlertMonsters();
+        A_PlaySound("weapon-shotgun-fire", CHAN_WEAPON);
 				A_FireProjectile("ShotgunShot", frandom(-6,-1), TRUE, 2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", 0, FALSE, 2, 0, FPF_AIMATANGLE);
 				A_FireProjectile("ShotgunShot", frandom(6,1), FALSE, 2, 0, FPF_AIMATANGLE);
@@ -99,18 +102,20 @@ class CT_Shotgun : MWeapon
 		RPPR A 0 CT_SetIdleFrame();
 		RPPR "#" 4 CT_ResetOffset();
 		RPPR A 0 CT_ResetAngleOffsets();
+
 		Goto Idle;
 	Fire.Reload:
-		RPPR G 1 
+		RPPR G 1
 			{
 				CT_ResetOffset();
 				invoker.barrel *= 0;
 			}
 		RPPR G 6 A_OverlayOffset(1,0,32 + 10, WOF_INTERPOLATE);
-		RPPR E 2 
+		RPPR E 2
 			{
 				A_OverlayOffset(1,0+Random(2,-2),32 + 8);
 				//Play sound here
+        A_PlaySound("weapon-shotgun-reload", CHAN_WEAPON);
 			}
 		RPPR C 3 A_OverlayOffset(1,0+Random(2,-2),32 + 10, WOF_INTERPOLATE);
 		RPPR A 6 A_OverlayOffset(1,0,32, WOF_INTERPOLATE);
@@ -177,7 +182,7 @@ Action void CT_SpectrumAnalyzer()
 		A_Overlay(6, "Ready.Spectrum6");
 		A_Overlay(7, "Ready.Spectrum7");
 		A_Overlay(8, "Ready.Spectrum8");
-		
+
 		A_OverlayFlags(3, PSPF_ADDWEAPON, TRUE);
 		A_OverlayFlags(4, PSPF_ADDWEAPON, TRUE);
 		A_OverlayFlags(5, PSPF_ADDWEAPON, TRUE);
@@ -216,7 +221,7 @@ States
 			}
 		Loop;
 	Death:
-		RPRS A 0 A_SetRoll(0); 
+		RPRS A 0 A_SetRoll(0);
 		RPRS BCBC 2;
 		RPRS DEFGH 3;
 		Stop;
