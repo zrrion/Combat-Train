@@ -109,15 +109,13 @@ class CT_Shotgun : MWeapon
 			{
 				CT_ResetOffset();
 				invoker.barrel *= 0;
-				A_PlaySound("weapon-shotgun-reload", CHAN_WEAPON);
+				A_PlaySound("weapon-shotgun-reload", CHAN_AUTO);//This should not override the firing noise
 			}
 		RPPR G 6 A_OverlayOffset(1,0,32 + 10, WOF_INTERPOLATE);
-		RPPR E 2
-			{
-				A_OverlayOffset(1,0+Random(2,-2),32 + 8);
-			}
-		RPPR C 3 A_OverlayOffset(1,0+Random(2,-2),32 + 10, WOF_INTERPOLATE);
-		RPPR A 6 A_OverlayOffset(1,0,32, WOF_INTERPOLATE);
+		RPPR E 3 A_OverlayOffset(1,0+Random(2,-2),32 + 8);
+		RPPR E 3 A_OverlayOffset(1,0+Random(2,-2),32 + 16);
+		RPPR C 6 A_OverlayOffset(1,0+Random(2,-2),32 + 10, WOF_INTERPOLATE);
+		RPPR A 8 A_OverlayOffset(1,0,32, WOF_INTERPOLATE);
 		RPPR A 0 CT_ResetAngleOffsets();
 		Goto Idle;
 	Spawn:
