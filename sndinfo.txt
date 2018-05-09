@@ -1,4 +1,3 @@
-Galaga/test "audio/GALAGA.ogg"
-weapon-nailgun-fire "audio/nailgun-fire.ogg"
-weapon-shotgun-reload "audio/shotgun-reload.ogg"
-weapon-shotgun-fire "audio/shotgun-fire.ogg"
+weapon-nailgun-fire "audio/nailgun/nailgun-fire.ogg"
+weapon-shotgun-reload "audio/shotgun/shotgun-reload.ogg"
+weapon-shotgun-fire "audio/shotgun/shotgun-fire.ogg"
