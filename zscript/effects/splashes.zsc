@@ -1,0 +1,86 @@
+class SplashBase : Actor
+{
+	default
+	{
+		+NOGRAVITY	+NOINTERACTION +NOBLOCKMAP
+	}
+	states
+	{
+		Spawn:
+			TNT1 A 0;
+			Stop;
+	}
+	override void PostBeginPlay()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(Random(0,5) > 0)
+				A_SpawnItemEx("GunSmoke", frandom(-2,2), frandom(-2,2), frandom(0,2), frandom(0.5,-0.5), frandom(0.5,-0.5), frandom(0.5, 2), 0, SXF_NOCHECKPOSITION);
+		}
+	}
+}
+
+class SplashLava : SplashBase
+{
+	override void PostBeginPlay()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(Random(0,1) > 0)
+				A_SpawnItemEx("GunSmoke", frandom(-2,2), frandom(-2,2), frandom(0,2), frandom(0.5,-0.5), frandom(0.5,-0.5), frandom(0.5, 2), 0, SXF_NOCHECKPOSITION);
+			else
+				A_SpawnItemEx("FlameFX", frandom(-2,2), frandom(-2,2), frandom(0,2), frandom(0.5,-0.5), frandom(0.5,-0.5), frandom(0.5, 2), 0, SXF_NOCHECKPOSITION);				
+		}
+	}
+}
+
+class SplashWater : SplashBase
+{
+	override void PostBeginPlay()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(Random(0,3) > 0)
+				A_SpawnItemEx("BubbleFX", frandom(-2,2), frandom(-2,2), frandom(0,2), frandom(0.5,-0.5), frandom(0.5,-0.5), frandom(0.5, 2), 0, SXF_NOCHECKPOSITION);				
+		}
+	}
+}
+
+class FlameFX : GunSmoke
+{
+	default
+	{
+		+NOGRAVITY	+NOINTERACTION +NOBLOCKMAP	+BRIGHT
+		-ROLLSPRITE
+	}
+	states
+	{
+		Spawn:
+			FIRE ABCDEF 3 A_SetTics(random(2,4));
+			Stop;
+	}
+}
+
+class BubbleFX : FlameFX
+{
+	states
+	{
+		Spawn:
+			BUBL A 0;//forgive my slight crime
+			BUBL "#" 6
+			{
+				frame = Random(0,3);
+				A_SetTics(Random(6,10));
+			}
+			BUBL "#" 4
+			{
+				A_ScaleVelocity(0);
+				frame = Random(4,6);
+				A_SetTics(Random(2,4));
+			}
+			Stop;
+	}
+	override void PostBeginPlay()//nothing
+	{
+	}
+}
