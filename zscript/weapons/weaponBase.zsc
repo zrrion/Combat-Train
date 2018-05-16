@@ -48,14 +48,8 @@ int ReadySprite;
 				CT_ResetOffset();
 				A_PlaySound("skeleton/swing", 6,0.5);
 			}
-		FIST C 2 A_CustomPunch(10, TRUE, CPF_NOTURN, "FistPuff");
+		FIST C 2 CT_MacArcHit("FistPuff", 10);
 		FIST BA 3;
-		/*FIST C 1 A_WeaponOffset(-50, 36);
-		FIST C 1 A_WeaponOffset(-90, 46);
-		FIST C 1 A_WeaponOffset(-140, 50);
-		FIST C 1 A_WeaponOffset(-180, 60);
-		FIST C 1 A_WeaponOffset(-210, 70);
-		FIST C 1 A_WeaponOffset(-240, 90);*/
 		TNT1 A 5;
 		TNT1 A 1 A_Refire("AltFire.Punch");
 		TNT1 A 0
@@ -201,6 +195,33 @@ int ReadySprite;
 	action bool CT_OldButtons(int button)
 	{
 		return (GetPlayerInput(INPUT_OLDBUTTONS) & button);
+	}
+//Hexen melee but expanded a little to accept different things and whatnot.
+	Action void CT_MacArcHit(string PuffType = "FistPuff", int damage = 15, int StrikeAngle = 45.)//this is pulled from A_CMaceAttack in gzdoom.pk3, with some edits here and there
+	{
+		FTranslatedLineTarget t;
+		if (player == null)
+			return;
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 1; j >= -1; j -= 2)
+			{
+				double ang = angle + j*i*(StrikeAngle / 16);
+				double slope = AimLineAttack(ang, 2 * DEFMELEERANGE, t);
+				if (t.linetarget)
+				{
+					LineAttack(ang, 2 * DEFMELEERANGE, slope, damage, 'Melee', PuffType, true, t);
+					if (t.linetarget != null)
+					{
+						AdjustPlayerAngle(t);
+						return;
+					}
+				}
+			}
+		}
+		weaponspecial = 0;
+		double slope = AimLineAttack (angle, DEFMELEERANGE);
+		LineAttack (angle, DEFMELEERANGE, slope, damage, 'Melee', PuffType);
 	}
 }
 
