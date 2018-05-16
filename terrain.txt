@@ -1,10 +1,40 @@
+//SplashBase
+//SplashLava
+//SplashWater
+
+splash SplashLava
+{
+	smallclass	"SplashLava"
+	baseclass	"SplashLava"
+	//sound
+	noalert
+}
+
+splash SplashWater
+{
+	smallclass	"SplashWater"
+	baseclass	"SplashWater"
+	//sound
+	noalert
+}
+
 terrain CT_Lava
 {
-	liquid
+	splash			"SplashLava"
+	//liquid//This is a liquid, but the behaviour for bouncing projectiles on liquids is stupid and I never want to deal with it
 	damageamount	5
 	damagetype		lava//this gets remaped to fire for some reason
 	damagetimemask	31
 }
+
+terrain CT_Water
+{
+	splash			"SplashWater"
+}
+
+floor WTRP0000 CT_Water
+floor WTRP0001 CT_Water
+floor WTRP0002 CT_Water
 
 floor LAVA0000 CT_Lava
 floor LAVA0001 CT_Lava

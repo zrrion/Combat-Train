@@ -26,3 +26,5 @@ version "2.5"
 
 #include "zscript/map/DynamicArray.zsc"
 #include "zscript/map/LineTexture.zsc"
+
+#include "zscript/effects/splashes.zsc"
