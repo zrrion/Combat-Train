@@ -47,7 +47,7 @@
 		N2IH A 0 CT_ResetAngleOffsets();
 		Goto Ready;
 	Spawn:
-		BLST Z -1;
+		NGIH Z -1;
 		Stop;
 	}
 }

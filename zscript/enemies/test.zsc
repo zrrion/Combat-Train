@@ -1,7 +1,18 @@
-class NewDemon : Demon replaces Demon
+class TestDummy : Demon replaces Demon
 {
 Default
 	{
 		speed 0;
+		+BUDDHA;
+		+ALLOWPAIN;
+		+DONTTHRUST;
+	}
+	States
+	{
+		Spawn:
+		See:
+		Pain:
+			STRW A -1;
+			Stop;
 	}
 }
