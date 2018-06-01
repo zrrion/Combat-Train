@@ -4,7 +4,7 @@ class CT_Shell : Ammo
 	{
 		//$Category Ammo
 		+INVENTORY.IGNORESKILL;
-		Inventory.PickupMessage "Shotgun shells (+4)";//Language defs later
+		Inventory.PickupMessage "Shotgun shells (+3)";//Language defs later
 		Inventory.Amount 3;
 		Inventory.MaxAmount 60;
 		Ammo.BackpackAmount 6;

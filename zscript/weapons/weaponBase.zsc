@@ -258,6 +258,7 @@ class GunSmoke : Actor
 	default
 	{
 		+NOGRAVITY	+NOINTERACTION +NOBLOCKMAP
+		+DONTSPLASH
 		+ROLLSPRITE
 	}
 	states

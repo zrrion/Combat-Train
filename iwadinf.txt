@@ -1,0 +1,11 @@
+IWad
+{
+	Name = "Combat Train EARLY ALPHA"
+	Autoname = "woolball.rotwb"
+	Game = "Doom"
+	Config = "WoolBall"
+	IWADName = "rotwb.wad"
+	Mapinfo = "mapinfo/doom2.txt"
+	MustContain = "E3M6", "B3DED", "WORLDMAP", "NUCLSKYM", "PLANETLE", "MEOWZEKI", "ZEKIINTR", "NOWAYBAC"
+	BannerColors = "32 54 43", "c6 dc d1"
+}

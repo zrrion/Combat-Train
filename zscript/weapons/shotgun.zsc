@@ -198,9 +198,7 @@ Default
 		Speed 20;
 		DamageFunction (20);//never randomizing damage again!
 		Projectile;
-		+ROLLSPRITE
-		+ROLLCENTER
-		+BRIGHT
+		+ROLLSPRITE	+ROLLCENTER	+BRIGHT	+BLOODSPLATTER
 		DeathSound "imp/shotx";
 	}
 Override void PostBeginPlay()

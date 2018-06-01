@@ -3,6 +3,7 @@ class TestDummy : Demon replaces Demon
 Default
 	{
 		speed 0;
+		radius 16;
 		+BUDDHA;
 		+ALLOWPAIN;
 		+DONTTHRUST;
