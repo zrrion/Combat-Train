@@ -11,7 +11,7 @@ default
 Override void PostBeginPlay()
 	{
 		A_SetAngle(frandom(0,360));
-		//A_SetScale(frandom(0.9,1.1));
+		A_SetScale(frandom(0.9,1.3));
 		A_Warp(AAPTR_DEFAULT, 0, 0, 0.125, 0, WARPF_NOCHECKPOSITION);
 	}
 States

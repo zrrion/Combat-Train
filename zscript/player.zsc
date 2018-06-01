@@ -104,7 +104,7 @@ override void Tick()
 	}
 //Remember, exploding projectiles deal 2 instances of damage, so you can only survive 3 rockets even though you have 6 wounds
 //perhaps incude handling regarding that behaviour?
-override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags = 0, double angle = 0)
+override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
 	{
 		if(CountInv("BasicArmor") > 0)
 			SetShade("89AC2F");//flash green for armor damage

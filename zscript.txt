@@ -11,6 +11,7 @@ version "2.5"
 #include "zscript/items/ammo/shells.zsc"
 #include "zscript/items/ammo/cells.zsc"
 #include "zscript/items/ammo/nails.zsc"
+#include "zscript/items/ammo/backpack.zsc"
 
 #include "zscript/weapons/weaponBase.zsc"
 #include "zscript/weapons/shotgun.zsc"

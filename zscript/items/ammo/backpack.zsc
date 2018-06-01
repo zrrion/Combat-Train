@@ -1,0 +1,14 @@
+class CT_Backpack : BackpackItem
+{
+	Default
+	{
+		Height 26;
+		Inventory.PickupMessage "$GOTBACKPACK";//Change this later
+	}
+	States
+	{
+	Spawn:
+		BPKS A -1;
+		Stop;
+	}
+}
