@@ -10,7 +10,7 @@ class CT_Macuahuitl : MWeapon
 	States
 	{
 	Ready:
-		MCIH A 1 CT_WeaponReady;
+		MCIH A 1 CT_WeaponReady(WRF_NOSECONDARY);//Add flag to turn off altfire
 		Loop;
 	Deselect:
 		MCIH A 1 CT_Lower;
@@ -23,7 +23,7 @@ class CT_Macuahuitl : MWeapon
 		MCIH AAA 1 A_OverlayOffset(1, 0, 16, WOF_KEEPX|WOF_ADD);
 	Hold:
 		MCIH BC 2;
-		MCIH D 2 CT_MacArcHit("FistPuff", 25, 30);
+		MCIH D 2 CT_MacArcHit("FistPuff", 25, 50);
 		MCIH E 2;
 		TNT1 A 11;
 		TNT1 A 1 A_ReFire("Hold");

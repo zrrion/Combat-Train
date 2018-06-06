@@ -2,9 +2,10 @@ class TestDummy : Demon replaces Demon
 {
 Default
 	{
+		health 150;
 		speed 0;
-		radius 16;
-		+BUDDHA;
+		radius 6;
+		//+BUDDHA;
 		+ALLOWPAIN;
 		+DONTTHRUST;
 	}
@@ -13,7 +14,205 @@ Default
 		Spawn:
 		See:
 		Pain:
-			STRW A -1;
+			STRW A 1;
+			Loop;
+		Death:
+			STRW B 4;
+			STRW B 2
+				{
+					static const class<Actor> Pieces1[] = { "TestGibC", "TestGibD", "TestGibE", "TestGibF", "TestGibG", "TestGibH", "TestGibI", "TestGibJ", "TestGibA", "TestGibB" };
+					static const class<Actor> Pieces2[] = { "TestGibK", "TestGibL", "TestGibM", "TestGibN", "TestGibK", "TestGibL", "TestGibM", "TestGibN", "TestGibK", "TestGibL", "TestGibM", "TestGibN" };
+					for(int i = 0; i < 10; i++)
+						A_SpawnItemEx(Pieces1[i],frandom(-8,8),frandom(-8,8), 16 + (2*i), frandom(0.5,5)*random(1,-1),frandom(0.5,5)*random(1,-1), frandom(0.5,6), frandom(0,360), SXF_TRANSFERTRANSLATION|SXF_ABSOLUTEVELOCITY);
+					for(int i = 0; i < 12; i++)
+					{
+						if(Random(0,2) > 0)
+							A_SpawnItemEx(Pieces2[i],frandom(-8,8),frandom(-8,8), 16 + (2*i), frandom(0.5,5)*random(1,-1),frandom(0.5,5)*random(1,-1), frandom(0.5,6), frandom(0,360), SXF_TRANSFERTRANSLATION|SXF_ABSOLUTEVELOCITY);
+					}
+				}
+			STRW CCCCC 35;//Spawn a bunch of gibbs and stuff ??
+			STRW C -1 Thing_Raise(0, TRUE);
+			Stop;
+		Raise:
+			STRW A 1;
+			GoTo Spawn;
+	}
+}
+
+class testGib : DemonChunk//This inherits from a hexen actor
+{
+	Default
+	{
+		+ROLLSPRITE
+	}
+	States
+	{
+		Spawn:
+			STRG A 1;
+			wait;
+		Death:
+			"####" "#" 35 A_SetTics(frandom(3,9)*35);
+			//Somehting to make the thing fall into the floor
+			"####" "########" 2 A_SinkGib();
 			Stop;
 	}
+	override void PostBeginPlay()
+	{
+		bSPRITEFLIP = Random(TRUE,FALSE);
+		A_SetRoll(fRandom(-20,20),0,0);
+	}
+	//Straight from SerpentGib1
+	//Not sutre if we need float, but sink is usefull.
+	void A_FloatGib(float FloatAmnt = 0.5)
+	{
+		Floorclip -= FloatAmnt;
+	}
+	void A_SinkGib(float SinkAmnt = 0.5)
+	{
+		Floorclip += SinkAmnt;
+	}
+}
+
+class TestGibA : testGib
+{
+	States
+		{
+		Spawn:
+			STRG A 1;
+			wait;
+		}
+}
+
+class TestGibB : testGib
+{
+	States
+		{
+		Spawn:
+			STRG B 1;
+			wait;
+		}
+}
+
+class TestGibC : testGib
+{
+	States
+		{
+		Spawn:
+			STRG C 1;
+			wait;
+		}
+}
+
+class TestGibD : testGib
+{
+	States
+		{
+		Spawn:
+			STRG D 1;
+			wait;
+		}
+}
+
+class TestGibE : testGib
+{
+	States
+		{
+		Spawn:
+			STRG E 1;
+			wait;
+		}
+}
+
+class TestGibF : testGib
+{
+	States
+		{
+		Spawn:
+			STRG F 1;
+			wait;
+		}
+}
+
+class TestGibG : testGib
+{
+	States
+		{
+		Spawn:
+			STRG G 1;
+			wait;
+		}
+}
+
+class TestGibH : testGib
+{
+	States
+		{
+		Spawn:
+			STRG H 1;
+			wait;
+		}
+}
+
+class TestGibI : testGib
+{
+	States
+		{
+		Spawn:
+			STRG I 1;
+			wait;
+		}
+}
+
+class TestGibJ : testGib
+{
+	Default
+	{
+		Gravity 0.65;
+	}
+	States
+		{
+		Spawn:
+			STRG J 1;
+			wait;
+		}
+}
+
+class TestGibK : TestGibJ
+{
+	States
+		{
+		Spawn:
+			STRG K 1;
+			wait;
+		}
+}
+
+class TestGibL : TestGibJ
+{
+	States
+		{
+		Spawn:
+			STRG L 1;
+			wait;
+		}
+}
+
+class TestGibM : TestGibJ
+{
+	States
+		{
+		Spawn:
+			STRG M 1;
+			wait;
+		}
+}
+
+class TestGibN : TestGibJ
+{
+	States
+		{
+		Spawn:
+			STRG N 1;
+			wait;
+		}
 }
