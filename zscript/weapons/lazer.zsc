@@ -107,7 +107,6 @@ class LazerShot : FastProjectile
 		TNT1 A 0 A_SetRoll(-45);
 		VLAS FGFG 2;
 		VLAS H 4 A_Explode(60, 96, XF_HURTSOURCE, TRUE);
-		VLAS H 4 A_Explode(60, 96, XF_HURTSOURCE, TRUE);
 		VLAS IJKL 3;
 		Stop;
 	}

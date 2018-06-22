@@ -51,7 +51,7 @@ class testGib : DemonChunk//This inherits from a hexen actor
 			STRG A 1;
 			wait;
 		Death:
-			"####" "#" 35 A_SetTics(frandom(3,9)*35);
+			"####" "#" 35 A_SetTics(frandom(3,9)*35);//add menu option to adjust fade speed
 			//Somehting to make the thing fall into the floor
 			"####" "########" 2 A_SinkGib();
 			Stop;
