@@ -53,7 +53,7 @@ action state CT_CheckTextureName(Actor mo, string flat)//this doesn't work for r
 states
 	{
 	Spawn:
-		GRSS P 0 NoDelay CT_CheckTextureName(self, "textures/grass/CTTX7001.png");
+		GRSS P 0 NoDelay CT_CheckTextureName(self, "GRSS0000");
 	Idle:
 		GRSS A 0
 		{

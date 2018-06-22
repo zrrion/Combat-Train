@@ -32,9 +32,9 @@ terrain CT_Water
 	splash			"SplashWater"
 }
 
-floor WTRP0000 CT_Water
-floor WTRP0001 CT_Water
-floor WTRP0002 CT_Water
+floor WTTR0000 CT_Water
+floor WTTR0001 CT_Water
+floor WTTR0002 CT_Water
 
 floor LAVA0000 CT_Lava
 floor LAVA0001 CT_Lava

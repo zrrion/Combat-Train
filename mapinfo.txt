@@ -47,6 +47,6 @@ map MAP01 "TestMap"
 {
    levelnum = 1
    next = "MAP01"
-   Sky1 = "CSKY0001", 0
+   Sky1 = "SKY00000", 0.125
    //music = "audio/GALAGA.ogg"
 }
