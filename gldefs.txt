@@ -1,16 +1,16 @@
-HardwareShader "textures/animated/WTRFL101.png"
+HardwareShader WTTR2000
 {
 	Shader "shaders/SCROLL.fp"
 	Speed 1
 }
 
-HardwareShader "textures/animated/WTRFL102.png"
+HardwareShader WTTR2001
 {
 	Shader "shaders/SCROLL.fp"
 	Speed 1
 }
 
-HardwareShader "textures/animated/WTRFL103.png"
+HardwareShader WTTR2002
 {
 	Shader "shaders/SCROLL.fp"
 	Speed 1

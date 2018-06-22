@@ -138,7 +138,7 @@ int ReadySprite;
 	action void CT_WeaponReady( int flags = WRF_NOBOB)//Only want to handle the select/deselect stuff, and firing
 	{
 		invoker.ReadySprite = Players[consoleplayer].psprites.sprite;
-		A_WeaponReady(flags);
+		A_WeaponReady(flags | WRF_NOBOB);
 		CT_WeaponBob();
 	}
 //====
@@ -197,7 +197,7 @@ int ReadySprite;
 		return (GetPlayerInput(INPUT_OLDBUTTONS) & button);
 	}
 //Hexen melee but expanded a little to accept different things and whatnot.
-	Action void CT_MacArcHit(string PuffType = "FistPuff", int damage = 15, int StrikeAngle = 45.)//this is pulled from A_CMaceAttack in gzdoom.pk3, with some edits here and there
+	Action void CT_MacArcHit(string PuffType = "FistPuff", int damage = 15, int StrikeAngle = 45., int range = 24)//this is pulled from A_CMaceAttack in gzdoom.pk3, with some edits here and there
 	{
 		FTranslatedLineTarget t;
 		if (player == null)
@@ -207,10 +207,10 @@ int ReadySprite;
 			for (int j = 1; j >= -1; j -= 2)
 			{
 				double ang = angle + j*i*(StrikeAngle / 16);
-				double slope = AimLineAttack(ang, 2 * DEFMELEERANGE, t);
+				double slope = AimLineAttack(ang,  2 * range, t);
 				if (t.linetarget)
 				{
-					LineAttack(ang, 2 * DEFMELEERANGE, slope, damage, 'Melee', PuffType, true, t);
+					LineAttack(ang, 2 * range, slope, damage, 'Melee', PuffType, true, t);
 					if (t.linetarget != null)
 					{
 						AdjustPlayerAngle(t);

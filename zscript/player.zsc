@@ -36,7 +36,7 @@ Default
 		Player.DamageScreenColor "000000", 0.0;
 		Player.StartItem "CT_Macuahuitl";
 		Player.StartItem "CT_Nailgun";//"CT_Pistol";
-		Player.StartItem "CT_NailClip", 800;
+		Player.StartItem "CT_NailClip", 50;
 
 		Player.DisplayName "Passenger";
 		Player.WeaponSlot 1, 'CT_Macuahuitl';
@@ -93,7 +93,7 @@ override void PostBeginPlay()
 	}
 override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)//This just lets me go this whenever the player takes damage, even if they don't feel pain
     {
-		GodFrames = 3;
+		GodFrames = 6;
 		return damage;
     }
 override void Tick()
@@ -110,7 +110,10 @@ override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int
 			SetShade("89AC2F");//flash green for armor damage
 		else
 			SetShade("C43432");//flash red for health damage
-	
+		If(CT_CheckDamageFlash())//There is probably a better way to do this, but I do ot care today
+			A_SetInventory("PowerInvulnerable", 1);
+		else
+			A_SetInventory("PowerInvulnerable", 0);
 	
 	//damage set to 0 if god mode is on
 		let player = self.player;
@@ -178,32 +181,30 @@ action void CT_OverchargeCooldown(int OverA, int OverH, int OverW, int OverMH, i
 		}
 	
 }
+action bool CT_CheckDamageFlash()
+{
+	if(invoker.GodFrames > 0)
+		return TRUE;
+	else
+		return FALSE;
+}
 action void CT_DamageFlash()
 {
-	int cheats = self.player.cheats;
-	Bool GodMode;
-		if(bINVULNERABLE || bNODAMAGE || CountInv("PowerInvulnerable") > 0 || cheats & (CF_GODMODE | CF_GODMODE2))
-		{
-			GodMode = TRUE;
-		}
-	if(invoker.GodFrames > 0 && invoker.GodFrames % 2 == 1 && !GodMode)
+	if(invoker.GodFrames > 0 && invoker.GodFrames % 2 == 1)
 		{
 			//SetShade("C43432");
 			//If poison damage is a thing, check the damage type and use setshade to make you green instead of red
 			A_SetRenderStyle(1.0,STYLE_Stencil);
-			bINVULNERABLE = TRUE;
 			invoker.GodFrames -= 1;
 		}
-		else if(invoker.GodFrames > 0 && !GodMode)
+		else if(invoker.GodFrames > 0)
 		{
 			A_SetRenderStyle(1.0,STYLE_Normal);
-			bINVULNERABLE = TRUE;
 			invoker.GodFrames -= 1;
 		}
 		else
 		{
 			A_SetRenderStyle(1.0,STYLE_Normal);
-			bINVULNERABLE = FALSE;
 		}
 }
 action void CT_SlideLess()

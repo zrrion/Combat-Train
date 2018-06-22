@@ -48,7 +48,7 @@ class NailShot : Actor
 		Radius 6;
 		Height 8;
 		Speed 20;
-		DamageFunction (5);//never randomizing damage again!
+		DamageFunction (13);//never randomizing damage again!
 		Projectile;
 		+RIPPER	+BRIGHT	+DONTFALL
 		DeathSound "imp/shotx";

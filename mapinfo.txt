@@ -16,9 +16,9 @@ gamedefaults//Since this will end up being an iwad
 
 DoomEdNums
 {	
-	//12000 = grenade/remote detonator?
-	//12001 = cool sword
-	//12002 = nailgun
+	12000 = CT_Macuahuitl
+	12001 = CT_Nailgun
+	12002 = CT_SuperNailgun
 	12003 = CT_Shotgun	
 	12004 = CT_Lazer
 	//12005 = fancy gun here
@@ -39,12 +39,14 @@ DoomEdNums
 	12023 = CT_HealthBonus
 	12024 = CT_HalfHeart
 	12025 = CT_FullHeart
+	12026 = CT_NailClip
+	12027 = CT_LargeNailClip
 	
 }
 map MAP01 "TestMap"
 {
    levelnum = 1
    next = "MAP01"
-   Sky1 = "CSKY0001", 0
+   Sky1 = "SKY00000", 0.125
    //music = "audio/GALAGA.ogg"
 }
