@@ -3,7 +3,8 @@ class CT_Shotgun : MWeapon
 	int barrel;
 	Default
 	{
-		//$Category Weapons
+		//$Category "Weapons"
+		//$Title "Shotgun"
 		Weapon.AmmoUse 1;
 		Weapon.AmmoGive 9;
 		Weapon.AmmoType "CT_Shell";

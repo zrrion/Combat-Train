@@ -6,9 +6,10 @@ class SwitchHand : SwitchableDecoration
 	int Flipped;
 	default
 	{
+		//$Category "Switches"
+		//$Title "Hand Switch"
 		height 32;
 		radius 16;
-		//$Category Switches
 		+USESPECIAL
 		+NOGRAVITY
 		+NOCLIP
@@ -75,6 +76,11 @@ States
 
 class SwitchTech : SwitchHand
 {
+default
+	{
+		//$Category "Switches"
+		//$Title "Tech Switch"
+	}
 States
 	{
 	Spawn:

@@ -2,6 +2,8 @@ class TestDummy : Demon replaces Demon
 {
 Default
 	{
+		//$Catagory "Enemies"
+		//$Title "Straw Dummy"
 		health 150;
 		speed 0;
 		radius 6;

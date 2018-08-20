@@ -1,0 +1,20 @@
+class CyanHandler : EventHandler
+{
+	PlayerInfo p;
+	override void UiTick()
+	{
+		int newtics;
+	
+		if(p)
+		{
+			newtics = int(gametic/6)%5;
+			//Console.Printf("%s: %i", "This is happening", newtics);
+			Shader.SetUniform1f(p, "CyanShaderScreen", "timer", newtics);
+			Shader.SetUniform1f(p, "CyanShaderBeforeBloom", "timer", newtics);
+		}
+	}
+	override void PlayerEntered(PlayerEvent e)
+	{
+		p = players[e.PlayerNumber];
+	}
+}

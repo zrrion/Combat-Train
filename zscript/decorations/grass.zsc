@@ -2,6 +2,8 @@ class Grass_Spawner : SwitchableDecoration
 {
 default
 	{
+		//$Catagory "Decoration"
+		//$Title "Grass Spawner"
 		Radius 8;//this doesn't do anything other than make it easier to move arround in Doom Builder
 		Height 16;
 		+FLOORCLIP

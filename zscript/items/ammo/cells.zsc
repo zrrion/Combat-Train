@@ -3,7 +3,8 @@ class CT_PowerPack : Ammo
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Energy Pack"
 		+INVENTORY.IGNORESKILL;
 		Inventory.PickupMessage "Power Pack (+2)";//Language defs later
 		Inventory.Amount 2;
@@ -25,7 +26,8 @@ class CT_LargePowerPack : CT_PowerPack
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Large Energy Pack"
 		Inventory.PickupMessage "High capacity power  pack (+10)";
 		Inventory.Amount 10;
 	}

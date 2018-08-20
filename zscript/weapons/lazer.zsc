@@ -2,7 +2,8 @@ class CT_Lazer : MWeapon
 {
 	Default
 	{
-		//$Category Weapons
+		//$Category "Weapons"
+		//$Title "Lazer Cannon"
 		Weapon.AmmoUse 1;
 		Weapon.AmmoGive 5;
 		Weapon.AmmoType "CT_PowerPack";

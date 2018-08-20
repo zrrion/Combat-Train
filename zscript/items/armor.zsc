@@ -3,7 +3,8 @@ class CT_LargeArmor : BasicArmorPickup
 {
 	Default
 	{
-		//$Category Armor
+		//$Title "Large Green Armor"
+		//$Category "Armor"
 		Armor.SaveAmount 100;
 		Inventory.MaxAmount 100;
 	}
@@ -19,7 +20,8 @@ class CT_SmallArmor : BasicArmorBonus
 {
 	Default
 	{
-		//$Category Armor
+		//$Category "Armor"
+		//$Title "Small Green Armor"
 		Armor.SaveAmount 10;
 		Armor.maxsaveamount 200;
 	}

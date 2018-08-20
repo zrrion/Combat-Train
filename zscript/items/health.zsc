@@ -2,7 +2,6 @@ class CT_HealthBase : Health
 {
 	Default
 	{
-		//$Category Health
 		Inventory.MaxAmount 106;//When this is picked up MaxAmount is recalculated to include wounds
 	}
 	override bool TryPickup(in out Actor toucher)
@@ -20,7 +19,8 @@ class CT_SmallHealth : CT_HealthBase
 {
 	Default
 	{
-		//$Category Health
+		//$Catagory "Health"
+		//$Title "Small Health"
 		Inventory.Amount 10;
 		Inventory.PickupMessage "Small health pack";
 	}
@@ -36,7 +36,8 @@ class CT_BigHealth : CT_HealthBase
 {
 	Default
 	{
-		//$Category Health
+		//$Category "Health"
+		//$Title "Big Health"
 		Inventory.Amount 25;
 		Inventory.PickupMessage "Big health pack";
 	}
@@ -52,7 +53,8 @@ class CT_HealthBonus : Health
 {
 	Default
 	{
-		//$Category Health
+		//$Category "Health"
+		//$Title "Health Bonus"
 		Inventory.Amount 10;
 		Inventory.MaxAmount 200;
 		Inventory.PickupMessage "Health bonus";
@@ -78,6 +80,8 @@ class CT_BiggestHealth : CT_HealthBase
 {
 	Default
 	{
+		//$Catagory "Health"
+		//$Title "Biggest Health"
 		Inventory.Amount 30;
 		Inventory.PickupMessage "Biggest health pack";
 	}
@@ -112,6 +116,8 @@ class CT_HalfHeart : CT_HealthBase
 {
 	Default
 	{
+		//$Catagory "Health"
+		//$Title "Half Heart"
 		+SYNCHRONIZED
 		Inventory.Amount 1;
 		Inventory.PickupMessage "Half heart potion";
@@ -119,7 +125,7 @@ class CT_HalfHeart : CT_HealthBase
 	States
 	{
 	Spawn:
-		HRTP ABCDEF 6;
+		HRTP A -1;
 		Loop;
 	}
 override bool TryPickup(in out Actor toucher)
@@ -143,6 +149,8 @@ class CT_FullHeart : CT_HealthBase
 {
 	Default
 	{
+		//$Catagory "Health"
+		//$Title "Full Heart"
 		+SYNCHRONIZED
 		Inventory.Amount 1;
 		Inventory.PickupMessage "Full heart potion";
@@ -150,7 +158,7 @@ class CT_FullHeart : CT_HealthBase
 	States
 	{
 	Spawn:
-		HRTP GHIJKL 6;
+		HRTP G -1;
 		Loop;
 	}
 override bool TryPickup(in out Actor toucher)

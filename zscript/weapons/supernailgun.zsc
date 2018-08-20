@@ -2,7 +2,8 @@
 {
 	Default
 	{
-		//$Category Weapons
+		//$Category "Weapons"
+		//$Title "Super Nailgun"
 		Weapon.AmmoUse 1;
 		Weapon.AmmoGive 20;
 		Weapon.AmmoType "CT_NailClip";
