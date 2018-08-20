@@ -2,7 +2,8 @@ class CT_NailClip : Ammo
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Nial Clip"
 		+INVENTORY.IGNORESKILL;
 		Inventory.PickupMessage "Nail clip (+15)";//Language defs later
 		Inventory.Amount 15;
@@ -24,7 +25,8 @@ class CT_LargeNailClip : CT_NailClip
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Nail Box"
 		Inventory.PickupMessage "Box of nails (+30)";
 		Inventory.Amount 30;
 	}

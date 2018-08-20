@@ -2,7 +2,8 @@
 {
 	Default
 	{
-		//$Category Weapons
+		//$Category "Weapons"
+		//$Title "Nailgun"
 		Weapon.AmmoUse 1;
 		Weapon.AmmoGive 20;
 		Weapon.AmmoType "CT_NailClip";
@@ -12,13 +13,13 @@
 	States
 	{
 	Ready:
-		NGIH A 1 CT_WeaponReady;
+		BGIH A 1 CT_WeaponReady;
 		Loop;
 	Deselect:
-		NGIH A 1 CT_Lower;
+		BGIH A 1 CT_Lower;
 		Loop;
 	Select:
-		NGIH A 1 CT_Raise;
+		BGIH A 1 CT_Raise;
 		Loop;
 	Fire:
 	Fire.Left:

@@ -1,3 +1,19 @@
+HardwareShader PostProcess Screen
+{
+	Name "CyanShaderScreen"
+	Shader "shaders/PostProcess/CYAN.fp" 330
+	Uniform int timer
+	Enabled
+}
+
+HardwareShader PostProcess BeforeBloom
+{
+	Name "CyanShaderBeforeBloom"
+	Shader "shaders/PostProcess/CYAN.fp" 330
+	Uniform int timer
+	Enabled
+}
+
 HardwareShader WTTR2000
 {
 	Shader "shaders/SCROLL.fp"

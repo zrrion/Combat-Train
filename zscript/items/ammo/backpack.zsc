@@ -2,6 +2,8 @@ class CT_Backpack : BackpackItem
 {
 	Default
 	{
+		//$Catagory "Ammo"
+		//$Title "Backpack"
 		Height 26;
 		Inventory.PickupMessage "$GOTBACKPACK";//Change this later
 	}

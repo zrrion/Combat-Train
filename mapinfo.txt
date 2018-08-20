@@ -8,6 +8,8 @@ GameInfo
 	
 	cursorpic = "graphics/M_CRSR.png"
 	DontCrunchCorpses = TRUE
+	
+	AddEventHandlers = "CyanHandler"
 }
 
 gamedefaults//Since this will end up being an iwad

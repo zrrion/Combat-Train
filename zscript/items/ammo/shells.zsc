@@ -2,7 +2,8 @@ class CT_Shell : Ammo
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Shells"
 		+INVENTORY.IGNORESKILL;
 		Inventory.PickupMessage "Shotgun shells (+3)";//Language defs later
 		Inventory.Amount 3;
@@ -24,7 +25,8 @@ class CT_ShellMag : CT_Shell
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Chell Mag"
 		Inventory.PickupMessage "Magazine of shells (+9)";
 		Inventory.Amount 9;
 	}
@@ -40,7 +42,8 @@ class CT_ShellPile : CT_Shell
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Shell Pile"
 		Inventory.PickupMessage "Several shotgun shells (+15)";
 		Inventory.Amount 15;
 	}
@@ -56,7 +59,8 @@ class CT_ShellBox : CT_Shell
 {
 	Default
 	{
-		//$Category Ammo
+		//$Catagory "Ammo"
+		//$Title "Shell Box"
 		Inventory.PickupMessage "Box of shells (+20)";
 		Inventory.Amount 20;
 	}

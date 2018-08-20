@@ -2,6 +2,8 @@ class lilypad : actor
 {
 default
 	{
+		//$Catagory "Decoration"
+		//$Title "Lillypad"
 		+FLATSPRITE
 		+NOINTERACTION
 		+NOBLOCKMAP

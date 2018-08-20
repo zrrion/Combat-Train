@@ -26,11 +26,12 @@ function int ArrayInsert(int array, int index, int value)
     return ScriptCall("DynArray_ACS", "Insert", array, index, value);
 }
 
-//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //The Thin Door Code
-//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 int DoorArray = -1;
 int iArray = -1;
+
 
 Script "SetUpTheDoorArray" Open
 {
@@ -40,19 +41,21 @@ Script "SetUpTheDoorArray" Open
 
 Script "ThinDoor" (int tag/*The tag of the line(s) of the door AND of the sector(s) to either side of the door*/, int speed/*Number of tics for each frame of animation*/, int texture/*which texture to use*/)
 {
+	if(texture == 0)	{	texture = 1;	}
+	int HugeHaxx = ArrayGet(DoorArray, tag);//I don't like doing this but it works well enough for now. Change to correct way after learning what correct way is.
+	HugeHaxx = ArrayGet(iArray, tag);
+	if(ArrayGet(iArray, tag) == 666)
+		terminate;
 	str Animation_Door[2][22] = {
-			/*Face Door*/		{"CCDR0000","CCDR0001","CCDR0002","CCDR0003","CCDR0004","CCDR0005","CCDR0006","CCDR0007","CCDR0008","CCDR0009","CCDR0010","CCDR0011","CCDR0012","CCDR0013","CCDR0014","CCDR0015","CCDR0016","CCDR0017","CCDR0018","CCDR0019","CCDR0020","CCDR0021"},
-			/*Face Dror Vines*/	{"CVDR0000","CVDR0001","CVDR0002","CVDR0003","CVDR0004","CVDR0005","CVDR0006","CVDR0007","CVDR0008","CVDR0009","CVDR0010","CVDR0011","CVDR0012","CVDR0013","CVDR0014","CVDR0015","CVDR0016","CVDR0017","CVDR0018","CVDR0019","CVDR0020","CVDR0021"}
+			/*Face Door*/		{"FDOR0000","FDOR0001","FDOR0002","FDOR0003","FDOR0004","FDOR0005","FDOR0006","FDOR0007","FDOR0008","FDOR0009","FDOR0010","FDOR0011","FDOR0012","FDOR0013","FDOR0014","FDOR0015","FDOR0016","FDOR0017","FDOR0018","FDOR0019","FDOR0020","FDOR0021"},
+			/*Face Dror Vines*/	{"FDOR1000","FDOR1001","FDOR1002","FDOR1003","FDOR1004","FDOR1005","FDOR1006","FDOR1007","FDOR1008","FDOR1009","FDOR1010","FDOR1011","FDOR1012","FDOR1013","FDOR1014","FDOR1015","FDOR1016","FDOR1017","FDOR1018","FDOR1019","FDOR1020","FDOR1021"}
 								};
 	//PlaySound
-	if(texture == 0)
-		texture = 1;
-	if(ArrayGet(DoorArray, tag) < 0 || ArrayGet(DoorArray, tag) > 1)
-	{
-		ArraySet(DoorArray, tag, 1);
-	}
+
+	
 	if(ArrayGet(DoorArray, tag) == 1)
 	{
+		ArraySet(iArray, tag, 666);
 		for(ArraySet(DoorArray, tag, 0); ArrayGet(DoorArray, tag) < 22; ArraySet(DoorArray, tag, ArrayGet(DoorArray, tag) + 1))
 		{
 			delay(speed);
@@ -61,11 +64,13 @@ Script "ThinDoor" (int tag/*The tag of the line(s) of the door AND of the sector
 					SetLineTexture(tag, j, TEXTURE_MIDDLE, Animation_Door[texture - 1][ArrayGet(DoorArray, tag)]);
 				}
 		}
+		ArraySet(iArray, tag, 0);
 		ArraySet(DoorArray, tag, 0);
 		Line_SetBlocking(tag, 0, BLOCKF_EVERYTHING|BLOCKF_USE|BLOCKF_SIGHT|BLOCKF_HITSCAN);
 	}
 	else
 	{
+		ArraySet(iArray, tag, 666);
 		Line_SetBlocking(tag, BLOCKF_EVERYTHING|BLOCKF_USE|BLOCKF_SIGHT|BLOCKF_HITSCAN|BLOCKF_SOUND, 0);
 		for(ArraySet(DoorArray, tag, 21); ArrayGet(DoorArray, tag) >= 0; ArraySet(DoorArray, tag, ArrayGet(DoorArray, tag) - 1))
 		{
@@ -75,6 +80,7 @@ Script "ThinDoor" (int tag/*The tag of the line(s) of the door AND of the sector
 					SetLineTexture(tag, j, TEXTURE_MIDDLE, Animation_Door[texture - 1][ArrayGet(DoorArray, tag)]);
 				}
 		}
+		ArraySet(iArray, tag, 0);
 		ArraySet(DoorArray, tag, 1);
 	}
 }

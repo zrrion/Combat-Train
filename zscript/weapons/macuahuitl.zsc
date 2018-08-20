@@ -3,6 +3,8 @@ class CT_Macuahuitl : MWeapon
 {
 	Default
 	{
+		//$Category "Weapons"
+		//$Title "Macuahuitl"
 		+WEAPON.AMMO_OPTIONAL
 		+WEAPON.MELEEWEAPON
 		Obituary "$OB_MPSHOTGUN";//Do this at some point
