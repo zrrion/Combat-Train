@@ -13,7 +13,7 @@ class CT_Lazer : MWeapon
 	States
 	{
 	Ready:
-		VCAN A 1 CT_WeaponReady;
+		VCAN AAAABCDEGHIJKLMNOP 2 CT_WeaponReady;
 		Loop;
 	Deselect:
 		VCAN A 1 CT_Lower;
@@ -22,17 +22,24 @@ class CT_Lazer : MWeapon
 		VCAN A 1 CT_Raise;
 		Loop;
 	Fire:
-		VCAN JKJK 2 CT_ResetOffset();
-		VCAN L 4
+		VCAN AQRQRQR 2 CT_ResetOffset();
+	
+	
+		//VCAN JKJK 2 CT_ResetOffset();
+		VCAN S 4
 			{
 				A_AlertMonsters();
 				A_FireProjectile("LazerShot");
 				CT_ResetOffset();
 			}
-		VCAN MN 3;
-		VCAN O 4;
-		VCAN PQRSTAUVA 2;
-		VCAN ABACADAEAFAGAHAI 1;
+		VCAN T 3;
+		VCA2 A 3;
+		VCA2 B 4;
+		VCA2 CDEFG 2;
+		VCAN A 2;
+		VCA2 H 2;
+		VCAN A 2;
+		VCNN ABACADAEAFAGAHAI 1;
 		VCAN A 1 A_ReFire("Fire");
 		VCAN A 0 CT_ResetAngleOffsets();
 		Goto Ready;

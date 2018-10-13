@@ -1,0 +1,78 @@
+//SPHRA0.png
+class Rubexplosion : actor
+{
+int FrameHolder;
+int WalkCounter;
+Default
+	{
+		//$Catagory "Enemies"
+		//$Title "Rubexplosion"
+		health 100;
+		speed 4;
+		Radius 10;
+		Height 32;
+		Mass 100;
+		PainChance 200;
+		Monster;
+		SeeSound "imp/sight";
+		PainSound "imp/pain";
+		DeathSound "imp/death";
+		ActiveSound "imp/active";
+		HitObituary "$OB_IMPHIT";
+		Obituary "$OB_IMP";
+		+NOBLOOD
+		+REFLECTIVE
+		-ALLOWPAIN;
+		+DONTTHRUST;
+		+FLOORCLIP;
+	}
+	States
+	{
+		Spawn:
+			SPHR A 10
+				{
+					A_Look();
+					FrameHolder = Frame;
+				}
+			Loop;
+		See:
+			SPHR ABCDAEFG 6
+			{
+				if(Frame == FrameHolder)
+					WalkCounter++;
+				if(Frame == FrameHolder && WalkCounter > random(0,128))
+				{
+					A_SetTics(random(8,16));
+					return ResolveState("Expand.Bronze");
+				}
+				else if(A_JumpIfCloser(192,"null"))
+				{
+					A_SetTics(3);
+					A_Chase();
+					return ResolveState(null);
+				}
+				else
+				{
+					A_Wander();
+					return ResolveState(null);
+				}
+			}
+			Loop;
+		Expand.Bronze:
+			SPHR AAAAHI 2;
+			SPHR J 8 A_SetTics(random(8,24));
+			SPHR KLKLKLMMMMJIH 2;
+			
+			SPHR ABCDAEFG 6
+			{
+				WalkCounter *= 0;
+				if(A_JumpIfCloser(192,"null"))
+					A_SetTics(3);
+				A_Wander();
+			}
+			Goto See;
+		Death:
+			SPHR A 35 A_Fadeout;
+			Wait;
+	}
+}

@@ -1,0 +1,48 @@
+class PottedPlant : actor
+{
+Default
+	{
+		//$Catagory "Enemies"
+		//$Title "Potted Plant"
+		health 100;
+		speed 0;
+		Radius 10;
+		Height 32;
+		Mass 100;
+		PainChance 200;
+		Monster;
+		SeeSound "imp/sight";
+		PainSound "imp/pain";
+		DeathSound "imp/death";
+		ActiveSound "imp/active";
+		HitObituary "$OB_IMPHIT";
+		Obituary "$OB_IMP";
+		+ALLOWPAIN;
+		+DONTTHRUST;
+		+FLOORCLIP;
+	}
+	States
+	{
+		Spawn:
+			PPNT A 10 A_Look;
+			Loop;
+		See:
+			PPNT A 6 A_Chase;
+			Loop;
+		Pain:
+			PPNT D 16 A_Pain;
+			Goto See;
+		Missile:
+			PPNT AB 6;
+			PPNT C 8
+			{
+				A_SpawnProjectile("ShotgunShot", (2*Height)/2);
+				A_PlaySound("weapon-shotgun-fire", CHAN_WEAPON);
+			}
+			PPNT BA 3;
+			Goto See;
+		Death:
+			PPNT DDDDD 35 A_Fadeout;
+			Stop;
+	}
+}
