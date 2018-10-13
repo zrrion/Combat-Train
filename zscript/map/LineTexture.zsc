@@ -1,3 +1,36 @@
+const MD_SIDE_FRONT = 0;
+const MD_SIDE_BACK  = 1;
+
+const MD_TEXTURE_TOP    = 0;
+const MD_TEXTURE_MIDDLE = 1;
+const MD_TEXTURE_BOTTOM = 2;
+
+class DoorAnimator
+{
+    static string DoorFrameChanger(string TexFirst, int Dir)
+    {
+		String TexAlpha = TexFirst.Mid(0,4);
+		String TexNum = TexFirst.Mid(4,4);
+		int TexNumeric = TexNum.toint(012);//This needs to be base 10 and since I have leading zeros I have to be explicit about that otherwise it will think I want it to be octal
+		TexNumeric += Dir;
+		return String.Format("%s%04d", TexAlpha, TexNumeric);
+    }
+	
+	static bool DoorTexChecker(String TexName, int Dir)
+	{
+		String TexAlpha = TexName.Mid(0,4);
+		String TexNum = TexName.Mid(4,4);
+		int TexNumeric = TexNum.toint(012);//This needs to be base 10 and since I have leading zeros I have to be explicit about that otherwise it will think I want it to be octal
+		TexNumeric += Dir;
+		TextureId TexId = TexMan.CheckForTexture (String.Format("%s%04d", TexAlpha, TexNumeric), TexMan.Type_Any);
+		If(int(TexId) = -1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+}
+
+
 /*
 for (int i = 0; i < level.Sides.Size(); i++)
         {
@@ -28,40 +61,3 @@ Step 5A:	If new texture exists set new texture
 Step 5B:	If new texture does not exist repeat steps 2-5 for next side
 step 6:		If no sides have had their textures changed return FALSE, else return TRUE
 */
-const MD_SIDE_FRONT = 0;
-const MD_SIDE_BACK  = 1;
-
-const MD_TEXTURE_TOP    = 0;
-const MD_TEXTURE_MIDDLE = 1;
-const MD_TEXTURE_BOTTOM = 2;
-
-class LineTextureChecker
-{
-    static bool ForwardAnimation()
-    {
-	String TexName;
-	String TexAlpha;
-	String TexNumeric;
-	TextureID CurTex;
-	TextureID NewTex;
-	//get a side of tag i
-		/*
-		LineIdIterator
-		*/
-	//check the current texture
-	
-	//do the name changing stuff
-	
-	//does it exist
-	NewTex = TexMan.CheckForTexture (TexName, TexMan.Type_Any);
-		if(TRUE)
-			{
-				//return FALSE;
-			}
-		else
-			{
-				//return FALSE;
-			}
-		return FALSE;
-    }
-}

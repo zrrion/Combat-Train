@@ -13,13 +13,13 @@
 	States
 	{
 	Ready:
-		BGIH A 1 CT_WeaponReady;
+		NGIH A 1 CT_WeaponReady;
 		Loop;
 	Deselect:
-		BGIH A 1 CT_Lower;
+		NGIH A 1 CT_Lower;
 		Loop;
 	Select:
-		BGIH A 1 CT_Raise;
+		NGIH A 1 CT_Raise;
 		Loop;
 	Fire:
 	Fire.Left:

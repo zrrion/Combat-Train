@@ -12,6 +12,8 @@ class Passenger : Playerpawn
 	int wounds;
 	int GodFrames;
 	int OverchargeCounter;
+	bool DoubleJump;
+	int JumpHangCounter;
 Default
 	{
 		+NOSKIN
@@ -23,7 +25,7 @@ Default
 		Painchance 255;
 		Speed 0.5;
 		Player.AttackZOffset 8;
-		Player.JumpZ 5;
+		Player.JumpZ 7;
 		MaxStepHeight 16;
 		Player.GruntSpeed 12;
 		Player.FallingScreamSpeed 35, 40;
@@ -46,6 +48,13 @@ Default
 		Player.WeaponSlot 5, 'CT_Lazer';
 		//Player.WeaponSlot 6, 'PlasmaRifle';
 		//Player.WeaponSlot 7, 'BFG9000';
+	}
+override void PostBeginPlay()
+	{
+		super.PostBeginPlay();
+		wounds = 6;
+		DoubleJump = FALSE;
+		JumpHangCounter = 24;
 	}
 States
 	{
@@ -81,15 +90,66 @@ States
 	}
 //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 // overrides go here
-OVERRIDE void MovePlayer()
+override void CheckJump()//This lets us double jump
+	{
+		let player = self.player;
+		if (player.cmd.buttons & BT_JUMP)
+		{
+			if (player.crouchoffset != 0)//If we are crouching we cannot jump and instead must stand up
+			{
+				player.crouching = 1;
+			}
+			else if (waterlevel >= 2)//swim instead of jumping in water
+			{
+				Vel.Z = 4 * Speed;
+			}
+			else if (bNoGravity)
+			{
+				Vel.Z = 3.;
+			}
+			else if (player.onground && player.jumpTics == 0)//is it okay to jump
+			{
+				double jumpvelz = JumpZ * 35 / TICRATE;//this is how much we jump
+
+				Vel.Z += jumpvelz;
+				bOnMobj = false;
+				player.jumpTics = JumpHangCounter;
+				if (!(player.cheats & CF_PREDICTING)) A_PlaySound("weapon-nailgun-fire", CHAN_BODY);
+				DoubleJump = False;
+			}
+			else if (!player.onground && DoubleJump && player.jumpTics > 0 && player.jumpTics <= 12)
+			{
+				double jumpvelz = JumpZ * 35 / TICRATE;
+				Vel.Z = jumpvelz;
+				bOnMobj = false;
+				player.jumpTics = -1 * JumpHangCounter/2;
+				if (!(player.cheats & CF_PREDICTING)) A_PlaySound("weapon-nailgun-fire", CHAN_BODY);
+				DoubleJump = False;
+			}
+		}
+	}
+Override void PlayerThink()
+	{
+		if (player.jumpTics != 0)
+		{
+			if (player.JumpTics >= JumpHangCounter/2)//Player cannot jump or double jump for a time after jumping
+				player.jumpTics--;
+				
+			if (player.jumpTics > 0 && player.jumpTics < JumpHangCounter/2 && !(player.cmd.buttons & BT_JUMP))//player can only double jump if they are not holding the button
+				DoubleJump = True;
+			if (player.onground && player.JumpTics < 0)
+				player.jumpTics++;
+				
+			if (player.onground && player.JumpTics > 0)
+				player.jumpTics--;
+		}
+		Super.PlayerThink();
+	}
+
+Override void MovePlayer()
 	{
 		Super.MovePlayer();
 		CT_SlideLess();
-	}
-override void PostBeginPlay()
-	{
-		super.PostBeginPlay();
-		wounds = 6;
 	}
 override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)//This just lets me go this whenever the player takes damage, even if they don't feel pain
     {

@@ -17,8 +17,12 @@ class CT_PowerPack : Ammo
 	States
 	{
 	Spawn:
-		CLLA A -1;
-		Stop;
+		CLLA A 16 A_SetTics(random(16,24));
+		CLLA B 8 A_SetTics(random(4,8));
+		CLLA CDCDCDCD 1;
+		CLLA BCBCBC 1;
+		CLLA ABAB 1;
+		Loop;
 	}
 }
 
@@ -34,7 +38,11 @@ class CT_LargePowerPack : CT_PowerPack
 	States
 	{
 	Spawn:
-		CLLA B -1;
-		Stop;
+		CLLA E 16 A_SetTics(random(16,24));
+		CLLA F 8 A_SetTics(random(4,8));
+		CLLA GHGHGHGH 1;
+		CLLA GFGFGF 1;
+		CLLA EFEF 1;
+		Loop;
 	}
 }

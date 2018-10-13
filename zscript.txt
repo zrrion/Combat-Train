@@ -21,6 +21,9 @@ version "2.5"
 #include "zscript/weapons/macuahuitl.zsc"
 
 #include "zscript/enemies/test.zsc"
+#include "zscript/enemies/potted plant.zsc"
+#include "zscript/enemies/rubexplosion.zsc"
+
 
 #include "zscript/decorations/grass.zsc"
 #include "zscript/decorations/lilypad.zsc"

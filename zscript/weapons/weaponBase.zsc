@@ -1,8 +1,8 @@
 class MWeapon : DoomWeapon
 {	
-float Ang;
-float AngOld;
-
+double Ang;
+double AngOld;
+double AngVeryOld;
 int ReadySprite;
 	Default
 	{
@@ -104,6 +104,7 @@ int ReadySprite;
 	{
 		invoker.Ang = Angle;//Fill Ang/AngOld to fix animation issue
 		invoker.AngOld = Angle;
+		invoker.AngVeryOld = Angle;
 	}
 	action void CT_SetWeaponFrame (int someInteger = 0, int Layer = 1)
 	{
@@ -146,9 +147,10 @@ int ReadySprite;
 //====
 	action void CT_WeaponBob(int bobx = 6, int boby = 12, double bobs = 0.75 )
 	{
+		invoker.AngVeryOld = invoker.AngOld;
 		invoker.AngOld = invoker.Ang;
 		invoker.Ang = Angle;
-		float AngleDif = (-0.5 * deltaangle(invoker.Ang, invoker.AngOld)) * (-1*(Abs(Pitch)-90))/90;//controls how far the player's weapon moves left/right. This is scaled by the player's pitch
+		float AngleDif = (-0.5 * deltaangle(invoker.Ang, (invoker.AngOld + invoker.AngVeryOld)/2)) * (-1*(Abs(Pitch)-90))/90;//controls how far the player's weapon moves left/right. This is scaled by the player's pitch
 		float Vel =  bobs * sqrt(vel.x * vel.x + vel.y * vel.y);
 		A_OverlayOffset(1,Abs(Vel * Cos(bobx * level.maptime)) + AngleDif,32 + Abs(Vel * Sin(boby * level.maptime)) + pitch/18, WOF_INTERPOLATE);//add pitch adjustments maybe
 	}
